@@ -1,5 +1,4 @@
 <?php
-//require_once 'Model/Permiso.php';
 class Usuario
 {
 	private $pdo;
@@ -33,7 +32,5 @@ class Usuario
 		}
 	}
 
-	public function Index(){
-		
-	}
+	
 }
