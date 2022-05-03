@@ -10,32 +10,28 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Nit</th>
-                                    <th>Ubicacion</th>
+                                    <th>Apellidos</th>
+                                    <th>Identificacion</th>
+                                    <th>Telefono</th>
+                                    <th>Correo</th>
                                     <th>Tipo</th>
-                                    <th>Potencial</th>
                                     <th>Estado</th>
                                     <th>Menu</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($clientes as $cliente) : ?>
-                                    <tr>
-                                        <td><?php echo  $cliente->nombre;  ?>
-                                            <?php foreach ($seguimientos as $seguimiento) : ?>
-                                                <?php if ($seguimiento->cliente_id == $cliente->cli_id) : ?>
-                                                 <a href="?c=seguimientos&a=index&cli_id=<?php echo $cliente->cli_id ?>" ><span class="right badge badge-success"><?php echo  $seguimiento->cant ?> Seguimientos</span></a>   
-                                            <?php endif;
-                                            endforeach; ?>
-                                        </td>
-                                        <td><?php echo  $cliente->nit ?></td>
-                                        <td><?php echo  $cliente->ubicacion ?></td>
-                                        <td><?php echo  $cliente->tipo_cliente ?></td>
-                                        <td><?php echo  $cliente->potencial ?></td>
-                                        <td><?php echo  $cliente->estado_id ? 'Activo' : 'Inactivo'; ?></td>
+                                <?php foreach ($usuarios as $usuario) : ?>
+                                    <tr>                                        
+                                        <td><?php echo  $usuario->nombres ?></td>
+                                        <td><?php echo  $usuario->apellidos ?></td>
+                                        <td><?php echo  $usuario->tipo_identificacion .' '.$usuario->num_identificacion ?></td>
+                                        <td><?php echo  $usuario->telefono ?></td>
+                                        <td><?php echo  $usuario->correo ?></td>                                        
+                                        <td><?php echo  $usuario->tipo ?></td>
+                                        <td><?php echo  $usuario->estado ? 'Activo' : 'Inactivo'; ?></td>
                                         <td>
-                                            <a class="" onclick="Edit('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i> </a>
-                                            <a class="" onclick="Seguimiento('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-address-book"></i> </a>
+                                            <a class="" onclick="Edit('<?php echo $usuario->id_user ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i> </a>
+                                            <a class="" onclick="Seguimiento('<?php echo $usuario->id_user ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-address-book"></i> </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -79,7 +75,7 @@
     function Add() {
         $.ajax({
             type: "POST",
-            url: '?c=clientes&a=crud',
+            url: '?c=usuarios&a=crud',
             success: function(resp) {
                 $('#index').html(resp);
                 $('#respuesta').html("");
@@ -90,7 +86,7 @@
     function Edit(id) {
         $.ajax({
             type: "POST",
-            url: '?c=clientes&a=crud',
+            url: '?c=usuarios&a=crud',
             data: {
                 id: id
             },
@@ -100,7 +96,6 @@
             }
         });
     }
-
     function Seguimiento(id) {
         $.ajax({
             type: "POST",

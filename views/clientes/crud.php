@@ -13,7 +13,26 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="nombre">Nit</label>
+                            <label for="nombre">Apellidos</label>
+                            <input type="text" name="apellidos" class="form-control" value='<?php echo $cliente->apellidos ?>' required>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="nombre">Correo</label>
+                            <input type="email" name="correo" class="form-control" value='<?php echo $cliente->correo ?>' required>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="nombre">Telefono</label>
+                            <input type="phone" name="telefono" class="form-control" value='<?php echo $cliente->telefono ?>' required>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="nombre">Nit/Cedula</label>
                             <input type="text" name="nit" class="form-control" value='<?php echo $cliente->nit ?>' required>
                         </div>
                     </div>
@@ -89,7 +108,7 @@
                         timer: 1500
                     },
                     setTimeout(function() {
-                        window.location.reload(1);
+                      window.location.reload(1);
                     }, 1500)
                 )
             }

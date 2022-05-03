@@ -9,30 +9,24 @@
                         <table id="example1" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Nit</th>
-                                    <th>Ubicacion</th>
-                                    <th>Tipo</th>
-                                    <th>Potencial</th>
-                                    <th>Estado</th>
+                                    <th>Fecha Control</th>
+                                    <th>Propuesta</th>
+                                    <th>m_envio</th>
+                                    <th>info1</th>
+                                    <th>info2</th>
+                                    <th>registro</th>
                                     <th>Menu</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($clientes as $cliente) : ?>
+                                <?php foreach ($seguimientos as $seguimiento) : ?>
                                     <tr>
-                                        <td><?php echo  $cliente->nombre;  ?>
-                                            <?php foreach ($seguimientos as $seguimiento) : ?>
-                                                <?php if ($seguimiento->cliente_id == $cliente->cli_id) : ?>
-                                                 <a href="?c=seguimientos&a=index&cli_id=<?php echo $cliente->cli_id ?>" ><span class="right badge badge-success"><?php echo  $seguimiento->cant ?> Seguimientos</span></a>   
-                                            <?php endif;
-                                            endforeach; ?>
-                                        </td>
-                                        <td><?php echo  $cliente->nit ?></td>
-                                        <td><?php echo  $cliente->ubicacion ?></td>
-                                        <td><?php echo  $cliente->tipo_cliente ?></td>
-                                        <td><?php echo  $cliente->potencial ?></td>
-                                        <td><?php echo  $cliente->estado_id ? 'Activo' : 'Inactivo'; ?></td>
+                                        <td><?php echo  $seguimiento->fecha_control;  ?></td>
+                                        <td><?php echo  $seguimiento->propuesta ?></td>
+                                        <td><?php echo  $seguimiento->m_envio ?></td>                                       
+                                        <td><?php echo  $seguimiento->info1 ?></td>
+                                        <td><?php echo  $seguimiento->info2 ?></td>
+                                        <td><?php echo  $seguimiento->creacion ?></td>
                                         <td>
                                             <a class="" onclick="Edit('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i> </a>
                                             <a class="" onclick="Seguimiento('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-address-book"></i> </a>

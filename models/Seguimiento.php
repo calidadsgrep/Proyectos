@@ -1,20 +1,16 @@
 <?php
-class Cliente
+class Seguimiento
 {
     private $pdo;
     public $id;
-    public $nombre;
-    public $apellidos;
-    public $correo;
-    public $telefono;
-    public $nit;
-    public $ubicacion;
-    public $potencial;
-    public $interesado_en;
-    public $como_se_entero;
-    public $tipo_cliente_id;
-    public $clie_id;
-
+    public $fecha_control;
+    public $cliente_id;
+    public $propuesta;
+    public $usuario_id;
+    public $info1;
+    public $info2;
+    public $creacion;
+    public $m_envio; 
 
     public function __CONSTRUCT()
     {
@@ -24,7 +20,6 @@ class Cliente
             die($e->getMessage());
         }
     }
-
 
     public function Listar()
     {
@@ -67,39 +62,35 @@ class Cliente
 
         try {
             $result = array();
-            $stm = $this->pdo->prepare("SELECT * FROM clientes WHERE id =$id ");
+            $stm = $this->pdo->prepare("SELECT * FROM seguimientos WHERE cliente_id =$id ");
             $stm->execute();
-            return $stm->fetch(PDO::FETCH_OBJ);
+            return $stm->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
 
-    public function Registrar(Cliente $data)
+    public function Registrar(Seguimiento $data)
     {
-
         try {
 
-            $stm = "INSERT INTO clientes(nombre, apellidos, correo, telefono, nit,   ubicacion, potencial, interesado_en, como_se_entero, estado_id, tipo_cliente_id)
-                             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stm = "INSERT INTO seguimientos(cliente_id, fecha_control, usuario_id, propuesta, m_envio, info1, info2, creacion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             $this->pdo->prepare($stm)->execute(array(
-                $data->nombre,
-                $data->apellidos,
-                $data->correo,
-                $data->telefono,
-                $data->nit,
-                $data->ubicacion,
-                $data->potencial,
-                $data->interesado_en,
-                $data->como_se_entero,
-                $data->estado_id,
-                $data->tipo_cliente_id
+                $data->cliente_id,
+                $data->fecha_control,
+                $data->usuario_id,
+                $data->propuesta,
+                $data->m_envio,
+                $data->info1,
+                $data->info2,
+                $data->creacion               
             ));
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    public function Actualizar(Cliente $data)
+
+    public function Actualizar(Seguimiento $data)
     {
         $id = $data->id;
         $nombre = $data->nombre;
@@ -118,23 +109,7 @@ class Cliente
         }
     }
 
-    public function Seguimientos()
-    {
 
-        try {
-            //code...
-            $stm = $this->pdo->prepare("SELECT clientes.id as clie_id, seguimientos.id as segui_id, seguimientos.cliente_id , COUNT(seguimientos.id) as cant
-                                        FROM clientes 
-                                        LEFT JOIN seguimientos ON clientes.id  = seguimientos.cliente_id
-                                        AND estado_id = 1
-                                        AND tipo_cliente_id != 3
-                                        GROUP BY clientes.id
-                                         ");
+    
 
-            $stm->execute();
-            return $stm->fetchAll(PDO::FETCH_OBJ);
-        } catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 }

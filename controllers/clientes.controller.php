@@ -16,9 +16,11 @@ class ClientesController
     {
         ;
         require_once 'views/layouts/header.php';
+
+        $seguimientos= $this->model->Seguimientos();
+        
         if(isset($_REQUEST['tp'])):
             $clientes = $this->model->Prospectos();
-           // print_r( $clientes);
         else:
             $clientes = $this->model->Listar();
         endif;
@@ -43,6 +45,9 @@ class ClientesController
 
      $cliente->id=$_REQUEST['id'];
      $cliente->nombre=$_REQUEST['nombre'];
+     $cliente->apellidos=$_REQUEST['apellidos'];
+     $cliente->correo=$_REQUEST['correo'];
+     $cliente->telefono=$_REQUEST['telefono'];
      $cliente->nit=$_REQUEST['nit'];
      $cliente->ubicacion=$_REQUEST['ubicacion'];
      $cliente->potencial=$_REQUEST['potencial'];

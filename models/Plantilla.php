@@ -1,27 +1,12 @@
 <?php
-class Usuario
+class Plantilla
 {
 	private $pdo;
 	public $id;
-	public $tipo_identificacion;
-	public $num_identificacion;
-	public $nombres;
-	public $apellidos;
-	public $telefono;
-	public $direccion;
-	public $correo;
-	public $foto;
-	public $username;
-	public $password;
-	public $estado;
-	public $infraestructura_id;
-	public $tipo_usuario;
-	public $tsangre;
-	public $created;
-	public $modified;
-	public $alergias;
-	public $genero;
-	public $mreducida;
+	public $nombre;
+	public $descripcion;
+	public $duracion;
+	
 
 	public function __CONSTRUCT()
 	{
@@ -36,12 +21,7 @@ class Usuario
 
 		try {
 			$result = array();
-            $stm = $this->pdo->prepare("SELECT usuarios.*,  usuarios.id as id_user , tipo_usuarios.tipo
-										FROM usuarios, tipo_usuarios 
-										WHERE tipo_usuario !='5'
-										AND 
-										usuarios.tipo_usuario=tipo_usuarios.id
-										");
+            $stm = $this->pdo->prepare("SELECT * FROM plantillas ");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
@@ -55,7 +35,7 @@ class Usuario
 
 		try {
 			$result = array();
-            $stm = $this->pdo->prepare("SELECT * FROM usuarios WHERE id = $id ");
+            $stm = $this->pdo->prepare("SELECT * FROM plantillas WHERE id = $id ");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
