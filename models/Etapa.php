@@ -1,5 +1,5 @@
 <?php
-class Plantilla
+class Etapa
 {
 	private $pdo;
 	public $id;
@@ -19,11 +19,11 @@ class Plantilla
 		}
 	}
      
-	public function Listar(){
+	public function Listar($id){
 
 		try {
 			$result = array();
-            $stm = $this->pdo->prepare("SELECT * FROM plantillas ");
+            $stm = $this->pdo->prepare("SELECT * FROM etapas WHERE proyecto_id=$id ");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {

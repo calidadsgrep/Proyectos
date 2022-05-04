@@ -5,73 +5,28 @@
             <!-- Default box -->
             <form action="" method="post" id="formdata">
                 <div class="row">
+                    
                     <div class="col-4">
                         <div class="form-group ">
-                            <label for="nombre">Tipo usuario</label>
-                            <select name="tipo" id="tipo" class="form-control">
-                            <option  value="">Seleccionar</option>                            
-                                <?php foreach ($tipoUsuarios as $tipoUsuario) : ?>
-                                    <option  <?php echo $usuario->tipo_usuario == $tipoUsuario->id ? 'selected' : ''  ?> value="<?php echo $tipoUsuario->id ?>"><?php echo ucwords($tipoUsuario->tipo) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <label for="nombre">nombre</label>
+                            <input type="text" name="nombre" class="form-control" value='<?php echo $plantillas->nombre ?>' required>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group ">
-                            <label for="nombre">Tipo Identificacion</label>
-                            <select name="tipo_identificacion" id="tipo_identificacion" class="form-control">
-                            <option  value="">Seleccionar</option>                            
-                                <option  <?php echo $usuario->tipo_identificacion == 'CC' ? 'selected' : ''  ?> value="CC">Cedula</option>
-                                <option  <?php echo $usuario->tipo_identificacion == 'TI' ? 'selected' : ''  ?> value="TI">Tarjeta Identidad</option>
-                                <option  <?php echo $usuario->tipo_identificacion == 'CE' ? 'selected' : ''  ?> value="CE">Cedula extranjeria</option>
-                                <option  <?php echo $usuario->tipo_identificacion == 'P' ? 'selected' : ''  ?> value="P">Pasaporte</option>
-                            
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group ">
-                            <label for="nombre">Identificación</label>
-                            <input type="text" name="num_identificacion" class="form-control" value='<?php echo $usuario->num_identificacion ?>' required>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group ">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" name="nombres" class="form-control" value='<?php echo $usuario->nombres ?>' required>
+                            <label for="nombre">Descripcion</label>
+                            <input type="text" name="descripcion" class="form-control" value='<?php echo $plantillas->descripcion ?>' required>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="nombre">Apellidos</label>
-                            <input type="text" name="apellidos" class="form-control" value='<?php echo $usuario->apellidos ?>' required>
+                            <label for="nombre">Duracion</label>
+                            <input type="text" name="duracion" class="form-control" value='<?php echo $plantillas->duracion ?>' required>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="nombre">Correo</label>
-                            <input type="email" name="correo" class="form-control" value='<?php echo $usuario->correo ?>' required>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="nombre">Telefono</label>
-                            <input type="phone" name="telefono" class="form-control" value='<?php echo $usuario->telefono ?>' required>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group"> 
-                            <label for="nombre">Estado</label>
-                            <select name="estado" id="estado" class="form-control">
-                                <option value=""> Seleccionar</option>
-                                <option <?php echo $usuario->estado == '1' ? 'selected' : ''  ?> value="1"> Activo</option>
-                                <option <?php echo $usuario->estado == '0' ? 'selected' : '' ?> value="0"> Inactivo</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+               </div>
                 
-                <input type="hidden" name="id" value='<?php echo $usuario->id ?>'>
+                
                 <input type="hidden" name="created" value='<?php echo date('Y-m-d') ?>'>
                 <input type="hidden" name="modified" value='<?php echo date('Y-m-d') ?>'>
                 <input type="button" id="guardar" class="btn btn-default btn-block" value="Enviar">
@@ -103,7 +58,7 @@
         $.ajax({
             data: data,
             type: "post",
-            url: "?c=usuarios&a=Registrar",
+            url: "?c=plantillas&a=Registrar",
             success: function(data) {
                 Swal.fire({
                         position: 'top-end',
@@ -113,7 +68,7 @@
                         timer: 1500
                     },
                     setTimeout(function() {
-                        window.location.reload(1);
+                       window.location.reload(1);
                     }, 1500)
                 )
             }

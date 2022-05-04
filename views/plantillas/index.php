@@ -16,14 +16,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($plantillas as $plantilla) : ?>
+                                <?php foreach($plantillas as $plantilla):?>
                                     <tr>                                        
                                         <td><?php echo  $plantilla->nombre ?></td>
                                         <td><?php echo  $plantilla->descripcion ?></td>
                                         <td><?php echo  $plantilla->duracion?></td>
                                         <td>
-                                            <a class="" onclick="Edit('<?php echo $plantilla->id ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i> </a>
-                                            <a class="" onclick="Seguimiento('<?php echo $plantilla->id ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-address-book"></i> </a>
+                                            <a class="" onclick="Edit('<?php echo $plantilla->id ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
+                                            <a href="?c=plantillas&a=gestion&pid=<?php echo $plantilla->id ?>" ><i class="fa fa-address-book"></i> </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -33,7 +33,6 @@
                                 <th>Nombre</th>
                                     <th>Descripción</th>
                                     <th>Duración</th>                                    
-                                    <th>Menu</th>
                                     <th>Menu</th>
                                 </tr>
                             </tfooter>
@@ -62,7 +61,7 @@
 
 
 <script>
-    
+
     function Add() {
         $.ajax({
             type: "POST",
