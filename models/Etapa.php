@@ -6,8 +6,8 @@ class Etapa
 	public $nombre;
 	public $descripcion;
 	public $duracion;
-	public  $created;
-    public  $modified;
+	public $created;
+    public $modified;
 	
 
 	public function __CONSTRUCT()
@@ -37,7 +37,7 @@ class Etapa
 
 		try {
 			$result = array();
-            $stm = $this->pdo->prepare("SELECT * FROM plantillas WHERE id = $id ");
+            $stm = $this->pdo->prepare("SELECT * FROM etapas WHERE proyecto_id = $id ");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
@@ -46,17 +46,15 @@ class Etapa
 
 	}
 
-	public function Registrar(Plantilla $data){
+	public function Registrar(Etapa $data){
 
 		try {
-			$stm = "INSERT INTO plantillas(nombre, descripcion, duracion,created, modified)
-                             VALUES(?, ?, ?, ?, ?)";
+			$stm = "INSERT INTO etapas(proyecto_id, notacion)
+                             VALUES(?, ?)";
             $this->pdo->prepare($stm)->execute(array(
-                $data->nombre,
-                $data->descripcion,
-                $data->duracion,
-                $data->created,
-				$data->modified
+                $data->proyecto_id,
+                $data->notacion,
+                
             ));
 		} catch (Exception $e) {
 			die($e->getMessage());
@@ -64,7 +62,7 @@ class Etapa
 
 	}
 
-	public function Actualizar(Plantilla $data){
+	public function Actualizar(Etapa $data){
 
 		try {
 			$result = array();

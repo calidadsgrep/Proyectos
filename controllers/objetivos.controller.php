@@ -1,15 +1,15 @@
 <?php
 require_once 'models/Auth.php';
-require_once 'models/Etapa.php';
+require_once 'models/Objetivo.php';
 
-class EtapasController
+class ObjetivosController
 {
 
     private $model;
 
     public function __CONSTRUCT()
     {
-        $this->model = new Etapa();
+        $this->model = new Objetivo();
     }
     public function Index()
     {
@@ -19,19 +19,19 @@ class EtapasController
 
     public function Crud()
     {
-        $Etapas = new Etapa();
+        $Etapas = new Objetivo();
         if (isset($_REQUEST['id'])) {
             $Etapas = $this->model->Obtener($_REQUEST['id']);
         }
-        require_once 'views/Etapas/crud.php';
+        require_once 'views/objetivos/crud.php';
     }
 
 
     public function Registrar()
     {
-        $etapa = new Etapa();
-        $etapa->proyecto_id    = $_REQUEST['proyecto_id'];
-        $etapa->notacion = $_REQUEST['notacion'];
+        $etapa = new Objetivo();
+        $etapa->etapa_id = $_REQUEST['etapa_id'];
+        $etapa->objetivo = $_REQUEST['objetivo'];
 
 
         $etapa->id > 0 ?
@@ -41,7 +41,7 @@ class EtapasController
 
     public function Gestion()
     {
-        $Etapas = new Etapa();
+        $Etapas = new Objetivo();
         $proyecto = $this->model->Obtener($_REQUEST['pid']);
         require_once 'views/layouts/header.php';
         require_once 'views/Etapas/gestion.php';
@@ -51,14 +51,21 @@ class EtapasController
 
     public function Proyecto()
     {
-        $Etapas = new Etapa();
+        $Etapas = new Objetivo();
         $proyecto = $this->model->Obtener($_REQUEST['pid']);
         require_once 'views/Etapas/ver.php';
     }
     public function Etapa()
     {
-        $Etapas = new Etapa();
+        $Etapas = new Objetivo();
         $proyecto = $this->model->Obtener($_REQUEST['pid']);
         require_once 'views/etapas/index.php';
+    }
+    public function Ver()
+    {   
+       $Etapas = new Objetivo();
+        $objindex= $this->model->Obj_index($_REQUEST['pid']);
+        require_once 'views/objetivos/ver.php';
+       
     }
 }

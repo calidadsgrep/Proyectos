@@ -15,9 +15,7 @@
           <?php foreach($etapas as $etapa):?>
           <tr>
             <td><?php echo $etapa->notacion?></td>
-            <td>
-            <a class="btn btn-default bg-red" id="obj" onclick="Obj('<?php echo $etapa->id ?>')" ><i class="fa fa-edit"></i></a>
-            </td>
+            <td><a id="obj">Objetivo</a></td>
           </tr>
           <?php endforeach;?>
         </tbody>
@@ -32,12 +30,11 @@
   </div>
 </div>
 
-<script>
+<script type="text/javascript">
   $(document).ready(function() {
     $('#add_etapa').click(function() {
       $('#info').html("<h5>Cargando Complementos</h5>");
       $.ajax({
-        async: true,
         type: "POST",
         url: '?c=etapas&a=crud&pid=<?php echo $_REQUEST['pid'] ?>',
         //data: 'pid=' + ,
@@ -47,18 +44,20 @@
         }
       });
     });
-});
 
-function Obj(val){
-  $.ajax({
-        async: true,
+    $('#obj').click(function() {
+      $('#info').html("<h5>Cargando Complementos</h5>");
+      $.ajax({
         type: "POST",
-        url: '?c=objetivos&a=crud',
-        data: 'eid=' + val ,
+        url: '?c=objetivos&a=crud&pid = <?php echo $etapa->id ?>',
+        //data: 'pid=' + ,
         success: function(resp) {
           $('#info').html(resp);
           $('#respuesta').html("");
         }
       });
-}
+    });
+
+
+  });
 </script>
