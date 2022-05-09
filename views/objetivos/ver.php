@@ -1,34 +1,28 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
-        <span class="badge badge-primary float-right" id="add_etapa"><i class="fa fa-plus"></i></span>
+        <h3>OBJETIVOS</h3>
     </div>
     <div class="card-body p-0">
         <div class="mailbox-read-info">
-            <table id="example1" class="table table-bordered example1">
-                <thead>
-                    <tr>
-                        <th>Etapas</th>
-                        <th>Objetivos</th>
-                        <th>Actividad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($objindex as $objindexs) : ?>
-                        <tr>
-                            <td><?php echo ucwords($objindexs->notacion) ?></td>
-                            <td><?php echo ucwords($objindexs->obj) ?></td>
-                            <td> <a id="obj" onclick="Act('<?php echo $objindexs->obj_id ?>')"> <i class="fa fa-calendar-week"></i></a> </td>
-                        </tr>
+            <div class="col-md-12">
+                <div class="row">
+                    <?php foreach ($objindex as $objindexs):?>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header bg-orange">
+                                    <div class="card-title text-white">
+                                        <small class="float-right"><?php echo ucwords(strtolower($objindexs->obj)) ?>
+                                            <i>-<?php echo ucwords(strtolower($objindexs->notacion)) ?></i>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="card-body"> <a id="obj" class="btn btn-default btn-block" onclick="Act('<?php echo $objindexs->obj_id ?>')"> <i class="fa fa-calendar-week"> </i> Agregar Actividades</a>
+                                </div>
+                            </div>
+                        </div>
                     <?php endforeach; ?>
-                </tbody>
-                <tfooter>
-                    <tr>
-                        <th>Etapas</th>
-                        <th>Objetivos</th>
-                        <th>Actividad</th>
-                    </tr>
-                </tfooter>
-            </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -37,7 +31,7 @@
         $.ajax({
             async: true,
             type: "POST",
-            url: '?c=actividades&a=crud&oid='+ val,
+            url: '?c=actividades&a=crud&oid=' + val,
             //data: 'pid=' + ,
             success: function(resp) {
                 $('#info').html(resp);
