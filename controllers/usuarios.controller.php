@@ -52,9 +52,9 @@ class UsuariosController
                 </script>";
 
         else :
-            echo "<script>
+            echo "<script type='text/javascript'>
                   alert('LOS DATOS INGRESADOS NO ESTA REGISTRADOS. TRATA DE NUEVO');
-              window.locaction.href ='../Proyectos'
+              window.locaction.href ='proyectos/'
                   </script>";
 
 
