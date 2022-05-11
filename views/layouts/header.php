@@ -1,13 +1,18 @@
 <?php
 session_start();
+if(isset($_SESSION['REMOTE_ADDR'])){
 if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_AGENT'] != $_SERVER['HTTP_USER_AGENT']) {
   //terminar la session
+  header('Location: ../Proyectos');
   http_response_code(403);
   die;
-} ?>
+}
+}else{
+  header('Location: ../Proyectos');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -156,6 +161,11 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
             <i class="fas fa-th-large"></i>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="?c=usuarios&a=cerrar" class="nav-link">
+            <i class="fa fa-power-off"></i>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.navbar -->
@@ -224,7 +234,7 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
                     <i class="far fa-circle nav-icon"></i>
                     <p>Prospectos</p>
                   </a>
-                </li>                
+                </li>
                 <li class="nav-item">
                   <a href="?c=clientes&a=index" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
@@ -234,7 +244,7 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
               </ul>
             </li>
             <li class="nav-item">
-              <a href="../widgets.html" class="nav-link">
+              <a href="?c=proyectos&a=index" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Proyectos
@@ -272,7 +282,7 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="?c=usuarios&a=home">Inicio</a></li>
                 <li class="breadcrumb-item"><a href="#"><?php echo ucwords($_REQUEST['c']) ?></a></li>
                 <li class="breadcrumb-item active"><?php echo ucwords($_REQUEST['a']) ?></li>
               </ol>

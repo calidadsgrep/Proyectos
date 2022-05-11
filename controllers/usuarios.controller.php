@@ -17,6 +17,22 @@ class UsuariosController
         require_once 'views/layouts/login.php';
         require_once 'views/usuarios/login.php';
     }
+
+    public function Home()
+    {
+        require_once 'views/layouts/header.php';
+        require_once 'views/usuarios/home.php';
+        require_once 'views/layouts/footer.php';
+    }
+
+    public function Cerrar()
+    {
+        session_start();
+        session_reset();
+        session_destroy();
+        header('Location: ../Proyectos');
+        
+    }
     public function Login()
     {
 
@@ -32,7 +48,7 @@ class UsuariosController
             $_SESSION['fullName'] = $datos->nombres . ' ' . $datos->apellidos;
 
             echo "<script type='text/javascript'>
-                window.location.href = '?c=clientes&a=index';
+                window.location.href = '?c=usuarios&a=home';
                 </script>";
 
         else :
