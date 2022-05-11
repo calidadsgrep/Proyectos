@@ -21,14 +21,7 @@
                     <h2 class="text-center">Inicia sesión ahora </h2>
 
                     <form action="?c=usuarios&a=login" method="POST" name="form-login" id="formulario">
-                        <!-- <div class="form-group">
-                                <div class="label">Usuario</div>
-                                <input type="text" class="form-control" maxlength="6" id="inputusuario" placeholder="Usuario" name="usuario" required>
-                            </div>
-                            <div class="form-group">
-                                <div class="label">Usuario</div>
-                                <input type="text" class="form-control" maxlength="6" id="inputusuario" placeholder="Usuario" name="usuario" required>
-                            </div> -->
+        
 
                         <div class="formulario__grupo" id="grupo__usuario">
                             <label for="usuario" class="formulario__label">Usuario</label>
@@ -40,12 +33,7 @@
                         </div>
                         <br>
 
-                        <!-- <div class="formulario__grupo" id="grupo__usuario">
-                            <div class="form-group">
-                                <div class="label">Password</div>
-                                <input type="password" class="form-control" maxlength="10" id="inputcontra" placeholder="Clave" name="clave" required>
-                            </div>
-                        </div> -->
+                       
                         <div class="formulario__grupo" id="grupo__clave">
                             <label for="clave" class="formulario__label">Contraseña</label>
                             <div class="formulario__grupo-input">
