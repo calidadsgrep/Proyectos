@@ -91,7 +91,7 @@
             url: "?c=seguimientos&a=guardar",
             success: function(data) {
                 Swal.fire({
-                        position: 'top-end',
+                    
                         icon: 'success',
                         title: 'El seguimiento se creo con exito',
                         showConfirmButton: false,
@@ -105,3 +105,8 @@
         });
     });
 </script>
+<style>
+    .modal {
+        margin-top: 10% !important;
+    }
+</style>

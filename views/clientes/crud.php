@@ -101,7 +101,7 @@
             url: "?c=clientes&a=guardar",
             success: function(data) {
                 Swal.fire({
-                        position: 'top-end',
+                        
                         icon: 'success',
                         title: 'El cliente se creo con exito',
                         showConfirmButton: false,
@@ -115,3 +115,8 @@
         });
     });
 </script>
+<style>
+    .modal {
+        margin-top: 10% !important;
+    }
+</style>

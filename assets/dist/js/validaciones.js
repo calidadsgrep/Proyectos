@@ -3,16 +3,20 @@ const inputs = document.querySelectorAll('#formulario input');
 
 const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{4,10}$/, // Letras, numeros, guion y guion_bajo
-	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	clave: /^.{6,12}$/, // 4 a 12 digitos.
+	nombres: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+	apellidos: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,  // Letras y espacios, pueden llevar acentos.
+	clave: /^.{6,12}$/,
+	num_identificacion: /^.{6,12}$/, // 4 a 12 digitos.
 	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
 	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
 }
 
 const campos = {
 	usuario: false,
-	nombre: false,
+	nombres: false,
+	apellidos:false,
 	clave: false,
+	num_identificacion:false,
 	correo: false,
 	telefono: false
 }
@@ -22,11 +26,18 @@ const validarFormulario = (e) => {
 		case "usuario":
 			validarCampo(expresiones.usuario, e.target, 'usuario');
 		break;
-		case "nombre":
-			validarCampo(expresiones.nombre, e.target, 'nombre');
+		case "nombres":
+			validarCampo(expresiones.nombres, e.target, 'nombres');
+		break;
+		case "apellidos":
+			validarCampo(expresiones.apellidos, e.target, 'apellidos');
 		break;
 		case "clave":
 			validarCampo(expresiones.clave, e.target, 'clave');
+			
+		break;
+		case "num_identificacion":
+			validarCampo(expresiones.num_identificacion, e.target, 'num_identificacion');
 			
 		break;
 		// case "password2":

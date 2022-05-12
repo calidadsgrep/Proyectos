@@ -21,12 +21,12 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($usuarios as $usuario) : ?>
-                                    <tr>                                        
+                                    <tr>
                                         <td><?php echo  $usuario->nombres ?></td>
                                         <td><?php echo  $usuario->apellidos ?></td>
-                                        <td><?php echo  $usuario->tipo_identificacion .' '.$usuario->num_identificacion ?></td>
+                                        <td><?php echo  $usuario->tipo_identificacion . ' ' . $usuario->num_identificacion ?></td>
                                         <td><?php echo  $usuario->telefono ?></td>
-                                        <td><?php echo  $usuario->correo ?></td>                                        
+                                        <td><?php echo  $usuario->correo ?></td>
                                         <td><?php echo  $usuario->tipo ?></td>
                                         <td><?php echo  $usuario->estado ? 'Activo' : 'Inactivo'; ?></td>
                                         <td>
@@ -39,10 +39,11 @@
                             <tfooter>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Nit</th>
-                                    <th>Ubicacion</th>
+                                    <th>Apellidos</th>
+                                    <th>Identificacion</th>
+                                    <th>Telefono</th>
+                                    <th>Correo</th>
                                     <th>Tipo</th>
-                                    <th>Potencial</th>
                                     <th>Estado</th>
                                     <th>Menu</th>
                                 </tr>
@@ -96,6 +97,7 @@
             }
         });
     }
+
     function Seguimiento(id) {
         $.ajax({
             type: "POST",
