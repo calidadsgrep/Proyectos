@@ -86,7 +86,7 @@ class Actividad
 		try {
 			$stm = $this->pdo->prepare("SELECT COUNT(objetivos.objetivo) AS num_obj FROM  plantillas, etapas, objetivos 
 										WHERE plantillas.id=$pid
-										AND plantillas.id= etapas.proyecto_id
+										AND plantillas.id= etapas.plantilla_id
 										AND etapas.id=objetivos.etapa_id 
 										ORDER BY etapas.id");
 			$stm->execute();
@@ -103,7 +103,25 @@ class Actividad
 			$stm = $this->pdo->prepare("SELECT etapas.*, etapas.id as et_id ,objetivos.id as obj_id, objetivos.objetivo as obj, actividades.actividad as act,  actividades.id as act_id
 			                            FROM  etapas, objetivos, actividades 
 										WHERE 
-										     etapas.proyecto_id=$pid
+										     etapas.plantilla_id=$pid
+										AND etapas.id = objetivos.etapa_id
+										AND objetivos.id = actividades.objetivo_id
+										ORDER BY etapas.id ASC");
+			$stm->execute();
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+	}
+
+	public function Act_Pro_eta($eid)
+	{
+		/*consultar todos los objetivos de todo el proyecto*/
+		try {
+			$stm = $this->pdo->prepare("SELECT etapas.*, etapas.id as et_id ,objetivos.id as obj_id, objetivos.objetivo as obj, actividades.actividad as act,  actividades.id as act_id
+			                            FROM  etapas, objetivos, actividades 
+										WHERE 
+										     etapas.id=$eid
 										AND etapas.id = objetivos.etapa_id
 										AND objetivos.id = actividades.objetivo_id
 										ORDER BY etapas.id ASC");

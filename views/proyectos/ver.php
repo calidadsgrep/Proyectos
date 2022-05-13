@@ -1,54 +1,112 @@
 <div class="card card-primary card-outline">
-    <div class="card-header"><?php echo $proyecto->nombre; ?>
-        <span class="badge badge-primary float-right">Creación: <?php echo $proyecto->created; ?></span>
+    <div class="card-header">VERIFICACIÓN
+        <span class="badge badge-primary float-right" id="guardar"> validar</span>
     </div>
     <div class="card-body p-0">
         <div class="container">
             <div class="mailbox-read-info">
-                <h6> <span class="badge badge-secondary float-right">Duración: <?php echo $proyecto->duracion; ?></span></h6>
-                <p class="text-justify"> <strong>Descripción: </strong> <?php echo $proyecto->descripcion; ?></p>
+
             </div>
+          <form name="form_horario" id="form_horario">
             <div class="row">
-                <?php $etapas = $etapa->Listar($proyecto->id); ?>
-                <?php foreach ($etapas as $etapa) : ?>
-                    <?php $objetivos = $obj->Listar($etapa->id); ?>
-                    <?php foreach ($objetivos as $objetivo) : ?>
-                        <?php $actividades = $act->Listar($objetivo->id); ?>
-                        <div class="col-md-6">
-                            <!-- Widget: user widget style 2 -->
-                            <div class="card card-widget widget-user-2 collapsed-card">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <div class="widget-user-header bg-orange">
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool float-right text-white" data-card-widget="collapse">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="widget-user-image">
-                                        <img class="img-circle elevation-2" src="assets/dist/img/etapa.png" alt="User Avatar">
-                                    </div>
-                                    <!-- /.widget-user-image -->
-                                    <h5 class="widget-user-username text-white"><?php echo  ucwords($etapa->notacion) ?></h5>
-                                    <h6 class="text-white"><?php echo ucfirst(strtolower(utf8_decode($objetivo->objetivo))) ?></h6>
-                                </div>
-                                <div class="card-footer p-0">
-                                    <ul class="nav flex-column">
-                                        <?php foreach ($actividades as $actividade) : ?>
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link">
-                                                    <?php echo  $actividade->actividad ?> <span class="float-right badge bg-primary"></span>
-                                                </a>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- /.widget-user -->
-                        </div>
-                    <?php endforeach; ?>
-                    <!-- /.col -->
-                <?php endforeach; ?>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>objetivo</th>
+                            <th>actividad</th>
+                            <th>horario</th>
+                            <th>check</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $key = 1;
+                        /* echo'<pre>';
+                        print_r($act_pro);
+                        echo'</pre>';*/
+                        foreach ($act_pro as  $value) : ?>
+
+                            <tr>
+                                <?php if ($value->et_id == $_REQUEST['val02']) : ?>
+
+                                    <td WIDTH="15%"><?php
+                                                    echo $value->obj ?></td>
+                                    <td WIDTH="40%">
+                                        <?php echo $value->act ?></td>
+                                    <td>
+                                        <?php $key2 = 1;
+                                        foreach ($horarios as $hora) : ?>
+
+                                            <?php
+                                            if ($key2 == $key) :
+                                               
+                                                echo '<div class="row">';
+                                                echo '<div class="col-6">';
+                                                echo '<label>Fecha</label>';
+                                                echo '<input name="fecha[]" id="fecha" class="form-control" value="'  . $hora->fecha .  '">';
+                                                echo '</div>';
+                                                echo '<div class="col-6">';
+                                                echo '<label>Dia</label>';
+                                                echo '<input name="dia[]" id="dia" class="form-control" value="'  . $hora->dia . '">';
+                                                echo '</div>';
+                                                echo '<div class="col-6">';
+                                                echo '<label>hInicio</label>';
+                                                echo '<input name="hora1[]" id="hora1" class="form-control" value="'  . $hora->hora1 . '">';
+                                                echo '</div>';
+                                                echo '<div class="col-6">';
+                                                echo '<label>hFin</label>';
+                                                echo '<input name="hora2[]" id="hora2" class="form-control" value="' . $hora->hora2 . '">';
+                                                echo '<input type="hidden" name="actividad_id[]" id="actividad_id" class="form-control" value="' . $value->act_id . '">';
+                                                echo '<input type="hidden" name="etapa_plantilla_id[]" id="etapa_plantilla_id" class="form-control" value="' . $hora->id . '">';
+                                                echo '</div>';
+                                                echo '</div>';
+                                                echo '</form>';
+                                            endif;
+
+                                            ?>
+
+                                    <?php $key2++;
+                                        endforeach;
+                                    endif; ?>
+                                    </td>
+                                    <td>
+                                    <form name="form_horario" id="form_horario">
+                                       <div class="col-12  text-center">
+                                                <input type="checkbox" class="form-check-input" name="c[]" id="check" value="checkedValue" checked>
+                                             </div>   
+                                                                        
+                                    </td>
+                                <?php //endif;
+                                echo '</tr>';
+                                $key++;
+                            endforeach; ?>
+                    </tbody>
+                </table></form>  
             </div>
         </div>
     </div>
 </div>
+<script>
+$(document).on('click', '#guardar', function(e) {
+        var data = $("#form_horario").serialize();
+       // $("#index").modal('hide'); //ocultamos el modal
+        $.ajax({
+            data: data,
+            type: "post",
+            url: "?c=proyectos&a=horario",
+            success: function(data) {
+                Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'El usuario se creo con exito',
+                        showConfirmButton: false,
+                        timer: 1500
+                    },
+                    setTimeout(function() {
+                      // window.location.reload(1);
+                    }, 1500)
+                )
+            }
+        });
+    });
+
+</script>
