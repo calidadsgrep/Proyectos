@@ -49,14 +49,17 @@ class Actividad
 		foreach ($data->actividad as $key => $cantidades) {
 			# code...
 			try {
-				$stm = "INSERT INTO actividades(objetivo_id, actividad)
-                             VALUES(?, ?)";
+				$stm = "INSERT INTO actividades(objetivo_id, actividad ,responsable,
+				soporte)
+                             VALUES(?, ?, ? ,?)";
 
 				$this->pdo->prepare($stm)
 					->execute(
 						array(
 							$data->objetivo_id,
 							$data->actividad[$key],
+							$data->proceso[$key],
+							$data->soporte[$key],
 
 						)
 					);
@@ -95,7 +98,6 @@ class Actividad
 			die($e->getMessage());
 		}
 	}
-
 	public function Act_Pro($pid)
 	{
 		/*consultar todos los objetivos de todo el proyecto*/

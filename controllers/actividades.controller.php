@@ -32,6 +32,8 @@ class ActividadesController
         $actividad = new Actividad();
         $actividad->objetivo_id = $_REQUEST['objetivo_id'];
         $actividad->actividad = $_REQUEST['actividad'];
+        $actividad->proceso = $_REQUEST['proceso'];
+        $actividad->soporte = $_REQUEST['soporte'];
 
 
         $actividad->id > 0 ?
