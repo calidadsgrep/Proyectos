@@ -26,7 +26,7 @@
                             <div class="formulario__grupo">
                                 <label class="formulario__label" for="tipo_identificacion">Tipo Identificacion</label>
                                 <div class="formulario__grupo-input">
-                                    <select name="tipo_identificacion" id="tipo_identificacion" class="formulario__input">
+                                    <select name="tipo_identificacion" id="tipo_identificacion" class="formulario__input" required>
                                         <option value="">Seleccionar</option>
                                         <option <?php echo $usuario->tipo_identificacion == 'CC' ? 'selected' : ''  ?> value="CC">Cedula</option>
                                         <option <?php echo $usuario->tipo_identificacion == 'TI' ? 'selected' : ''  ?> value="TI">Tarjeta Identidad</option>
@@ -41,7 +41,7 @@
                             <div class="formulario__grupo" id="grupo__num_identificacion">
                                 <label for="num_identificacion" class="formulario__label">Identificación</label>
                                 <div class="formulario__grupo-input">
-                                    <input type="text" class="formulario__input" maxlength="12" name="num_identificacion" id="num_identificacion" placeholder="num_identificacion" value='<?php echo $usuario->num_identificacion ?>'>
+                                    <input type="text" class="formulario__input" maxlength="12" name="num_identificacion" id="num_identificacion"  required placeholder="num_identificacion" value='<?php echo $usuario->num_identificacion ?>'>
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">La Identificacion debe contener minimo 6 y maximo 12 digitos.</p>
@@ -54,7 +54,7 @@
                             <div class="formulario__grupo" id="grupo__nombres">
                                 <label for="nombres" class="formulario__label">Nombre</label>
                                 <div class="formulario__grupo-input">
-                                    <input type="text" class="formulario__input" maxlength="20" name="nombres" id="nombres" placeholder="nombres" value='<?php echo $usuario->nombres ?>'>
+                                    <input type="text" class="formulario__input" maxlength="20" name="nombres" id="nombres" placeholder="nombres" required value='<?php echo $usuario->nombres ?>'>
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Los nombres solo puede contener letras.</p>
@@ -64,7 +64,7 @@
                             <div class="formulario__grupo" id="grupo__apellidos">
                                 <label for="apellidos" class="formulario__label">Apellidos</label>
                                 <div class="formulario__grupo-input">
-                                    <input type="text" class="formulario__input" maxlength="20" name="apellidos" id="apellidos" placeholder="apellidos" value='<?php echo $usuario->apellidos ?>'>
+                                    <input type="text" class="formulario__input" maxlength="20" name="apellidos" id="apellidos" placeholder="apellidos" required value='<?php echo $usuario->apellidos ?>'>
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Los apellidos solo puede contener letras.</p>
@@ -75,7 +75,7 @@
                             <div class="formulario__grupo" id="grupo__correo">
                                 <label for="correo" class="formulario__label">Correo</label>
                                 <div class="formulario__grupo-input">
-                                    <input type="email" class="formulario__input" name="correo" id="correo" placeholder="correo" value='<?php echo $usuario->correo ?>'>
+                                    <input type="email" class="formulario__input" name="correo" id="correo" placeholder="correo" required value='<?php echo $usuario->correo ?>'>
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Ingresa un correo valido</p>
@@ -85,7 +85,7 @@
                             <div class="formulario__grupo" id="grupo__telefono">
                                 <label for="telefono" class="formulario__label">Telefono</label>
                                 <div class="formulario__grupo-input">
-                                    <input type="tel" class="formulario__input" maxlength="10" name="telefono" id="telefono" placeholder="telefono" value='<?php echo $usuario->telefono ?>'>
+                                    <input type="tel" class="formulario__input" maxlength="10" name="telefono" id="telefono" placeholder="telefono" required value='<?php echo $usuario->telefono ?>'>
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Un telefono valido !</p>

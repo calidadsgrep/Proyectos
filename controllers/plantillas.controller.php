@@ -29,7 +29,8 @@ class PlantillasController
         if (isset($_REQUEST['id'])) {
             $plantillas = $this->model->Obtener($_REQUEST['id']);
         }
-         require_once 'views/plantillas/crud.php';
+        require_once 'views/layouts/validaciones.php'; 
+        require_once 'views/plantillas/crud.php';
     }
 
 
