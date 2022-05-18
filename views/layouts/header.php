@@ -27,6 +27,7 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
   <link rel="stylesheet" href="assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   
  
+  <link rel="stylesheet" href="assets/plugins/full_calendar/css/fullcalendar.css" type="text/css"/>
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
   <script src="assets/plugins/jquery/jquery.min.js"></script>

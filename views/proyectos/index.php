@@ -58,10 +58,7 @@
     </div>
     <!-- /.modal -->
 </div>
-
-
 <script>
-
     function Add() {
         $.ajax({
             type: "POST",
@@ -76,7 +73,7 @@
     function Edit(id) {
         $.ajax({
             type: "POST",
-            url: '?c=usuarios&a=crud',
+            url: '?c=proyectos&a=crud',
             data: {
                 id: id
             },

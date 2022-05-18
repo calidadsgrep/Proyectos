@@ -10,9 +10,17 @@
                     <button id="addRow" type="button" class="btn btn-default"> <i class='fa fa-plus'></i> Agregar Item</button>
                 </div>
                 <input type="hidden" name="objetivo_id" value="<?php echo $_REQUEST['oid'] ?>">
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <label for="">Actividad</label>
-                    <textarea name="actividad[]" id="actividad" class="form-control" required> </textarea>
+                    <input name="actividad[]" id="actividad" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="">Proceso Reponsable</label>
+                    <input name="proceso[]" id="proceso" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="">Soporte Esperado</label>
+                    <input name="soporte[]" id="soporte" class="form-control" required>
                 </div>
                 <div id="newRow" class="col-md-12"></div>
             </div>
@@ -28,15 +36,32 @@
     $("#addRow").click(function() {
         var html = '';
         html += '<div id="inputFormRow">'
-        html += '<div class="input-group">'
         html += '<div class="col-md-12">';
+        html += '<div class="input-group">'
+        html += '<div class="col-md-4">';
         html += '<label for="">Actividad</label>';
         html += '<div class="input-group">';
-        html += '<textarea name="actividad[]" id="actividad" class="form-control" min="1"> </textarea>';
+        html += '<input name="actividad[]" id="actividad" class="form-control" >';
+        html += '</div>';
+        html += '</div>';
+
+        html += '<div class="col-md-4">';
+        html += '<label for="">Proceso Reponsable</label>';
+        html += '<div class="input-group">';
+        html += '<input name="proceso[]" id="proceso" class="form-control" >';
+        html += '</div>';
+        html += '</div>';
+
+        html += '<div class="col-md-4">';
+        html += '<label for="">Soporte Esperado</label>';
+        html += '<div class="input-group">';
+        html += '<input name="soporte[]" id="soporte" class="form-control" >';
         html += '<span class="input-group-append">';
         html += '<button id="removeRow" type="button" class="btn btn-danger "><i class="fa fa-trash"><i></button>';
         html += '</span>';
         html += '</div>';
+        html += '</div>';
+
         html += '</div>';
         html += '</div>';
         $('#newRow').append(html);
@@ -63,7 +88,7 @@
                             alert("Fallo al agregar");
                         } else {
                             alert("Agregado con éxito!!");
-                           window.location.reload();
+                            window.location.reload();
                         }
                     }
                 });

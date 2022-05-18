@@ -46,8 +46,7 @@
                     </div>
                </div>
                 
-               <input type="hidden" name="id" value='<?php echo $proyectos->id ?>'>
-             
+               <input type="hidden" name="id" value='<?php echo $proyectos->id ?>'>            
                 
                 <input type="button" id="guardar" class="btn btn-default btn-block" value="Enviar">
 
@@ -88,7 +87,7 @@
                         timer: 1500
                     },
                     setTimeout(function() {
-                       //window.location.reload(1);
+                       window.location.reload(1);
                     }, 1500)
                 )
             }

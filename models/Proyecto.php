@@ -9,6 +9,7 @@ class Proyecto
 	public $cliente_id;
     public $plantilla_id;
 	
+	
 
 	public function __CONSTRUCT()
 	{
@@ -68,7 +69,7 @@ class Proyecto
 
 		try {
 			$result = array();
-			$sql = "UPDATE proyectos SET nombre='$data->nombre', descripcion='$data->descripcion', duracion='$data->duracion'  modified='$data->modified'  WHERE id = '$data->id'";
+			$sql = "UPDATE proyectos SET plantilla_id='$data->plantilla_id', cliente_id='$data->cliente_id', 	fecha_inicio='$data->fecha_inicio',  fecha_cierre='$data->fecha_cierre', nombre='$data->nombre'  WHERE id = '$data->id'";
             $this->pdo->prepare($sql)->execute();
            
 		} catch (Exception $e) {
@@ -76,6 +77,11 @@ class Proyecto
 		}
 
 	}
+
+
+	
+
+	
 
 
 

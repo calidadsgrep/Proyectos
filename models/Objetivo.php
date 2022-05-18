@@ -87,7 +87,7 @@ class Objetivo
 		try {
 			$stm = $this->pdo->prepare("SELECT COUNT(objetivos.objetivo) AS num_obj FROM  plantillas, etapas, objetivos 
 										WHERE plantillas.id=$pid
-										AND plantillas.id= etapas.proyecto_id
+										AND plantillas.id= etapas.plantilla_id
 										AND etapas.id=objetivos.etapa_id 
 										ORDER BY etapas.id");
 			$stm->execute();
@@ -103,7 +103,7 @@ class Objetivo
 		try {
 			$stm = $this->pdo->prepare("SELECT etapas.*, etapas.id as et_id ,objetivos.id as obj_id, objetivos.objetivo as obj FROM  etapas, objetivos 
 										WHERE 
-										     etapas.proyecto_id=$pid
+										     etapas.plantilla_id=$pid
 										AND etapas.id = objetivos.etapa_id
 										ORDER BY objetivos.id ASC
 										 ");
