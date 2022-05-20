@@ -24,16 +24,13 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
   <!-- DataTables -->
   <link rel="stylesheet" href="assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  
- 
+  <link rel="stylesheet" href="assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">  
   <link rel="stylesheet" href="assets/plugins/full_calendar/css/fullcalendar.css" type="text/css"/>
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
   <script src="assets/plugins/jquery/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- <script src="assets\dist\js\validaciones.js"></script> -->
-
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -212,6 +209,12 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a href="?c=procesos&a=index" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Procesos</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="../../index2.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tipos de usuarios</p>
@@ -275,7 +278,6 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
       </div>
       <!-- /.sidebar -->
     </aside>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -283,7 +285,6 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">

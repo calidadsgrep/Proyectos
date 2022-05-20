@@ -16,7 +16,14 @@
                 </div>
                 <div class="col-md-4">
                     <label for="">Proceso Reponsable</label>
-                    <input name="proceso[]" id="proceso" class="form-control" required>
+                        <select name="proceso[]" id="proceso" class="form-control">
+                            <?php foreach ($procesos as $value) {
+                                echo'<option value="'.$value->id.'">'.$value->sigla.'-'.$value->proceso.'</option>';
+                            } ?>
+                            
+                        </select>
+
+                   
                 </div>
                 <div class="col-md-4">
                     <label for="">Soporte Esperado</label>

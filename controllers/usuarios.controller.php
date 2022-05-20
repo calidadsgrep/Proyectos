@@ -99,7 +99,6 @@ class UsuariosController
         $usuario->tipo_usuario = $_REQUEST['tipo'];
         $usuario->created = $_REQUEST['created'];
         $usuario->modified = $_REQUEST['modified'];
-
         $usuario->id > 0 ?
               $this->model->Actualizar($usuario)
             : $this->model->Registrar($usuario);
