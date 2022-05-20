@@ -80,6 +80,7 @@ class UsuariosController
             $usuario=  $this->model->Obtener($_REQUEST['id']);
              //   print_r($usuario);
         }
+        require_once 'views/layouts/validaciones.php';
         require_once 'views/usuarios/crud.php';
     }
     public function Registrar()
@@ -111,6 +112,7 @@ class UsuariosController
         $usuario->clave = md5($_REQUEST['num_identificacion']);
         $usuario->estado = $_REQUEST['estado'];
         $usuario->tipo_usuario = $_REQUEST['tipo_usuario '];
+        require_once 'views/layouts/validaciones.php';
     }
     public function Borrar()
     {

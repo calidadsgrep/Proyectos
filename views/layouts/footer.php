@@ -27,6 +27,8 @@
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="assets/plugins/jquery/jquery.min.js"></script>
+
+<!-- <script src="assets\dist\js\validaciones.js"></script> -->
 <!-- Bootstrap 4 -->
 <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- SweetAlert2 -->
@@ -54,6 +56,7 @@
 <script src="assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes 
 <script src="View/library/dist/js/demo.js"></script>-->
+
 
 <script>
 $(document).ready(function(){
