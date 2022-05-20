@@ -26,7 +26,7 @@
                             <label for="descripcion" class="formulario__label">Descripcion</label>
                             <div class="formulario__grupo-input">
                                 <!-- <input type="text" class="formulario__input" minlength="20" name="descripcion" id="descripcion" placeholder="ingresa la descripcion del proyecto" required value=''> -->
-                                <textarea class="formulario__input" minlength="20" name="descripcion" id="descripcion" placeholder="ingresa la descripcion del proyecto" required value='<?php echo $plantillas->descripcion ?>'></textarea>
+                                <textarea class="formulario__input" minlength="20" rows="2" style="resize: none;" name="descripcion" id="descripcion" placeholder="ingresa la descripcion del proyecto" required value='<?php echo $plantillas->descripcion ?>'></textarea>
                                 <i class="formulario__validacion-estado fas fa-times-circle"></i>
                             </div>
                             <p class="formulario__input-error">La descripcion debe tener un minimo de 20 caracteres ! </p>

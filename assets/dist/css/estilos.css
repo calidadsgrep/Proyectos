@@ -13,6 +13,9 @@ main {
 	margin: auto;
 	padding: 40px;
 }
+textarea {
+	resize: none;
+  }
 
 .formulario {
 	display: grid;
