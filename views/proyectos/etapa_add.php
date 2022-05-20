@@ -89,7 +89,7 @@
 				</div>
 				<input type="hidden" name="id" value=''>
 				<input type="hidden" id="etapa_id" name="etapa_id" value="<?php echo $_REQUEST['eid'] ?>">
-				<input type="hidden" id="proyecto_id" name="proyecto_id" value="<?php echo $_SESSION['pid'] ?>">
+				<input type="hidden" id="proyecto_id" name="proyecto_id" value="<?php echo $_REQUEST['pid'] ?>">
 		</div>
 
 		<input type="button" id="guardar" class="btn btn-default btn-block" value="Enviar">

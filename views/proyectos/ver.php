@@ -55,19 +55,16 @@
                                                     echo '<input type="hidden" name="actividad_id[' . $value->act_id . ']" id="actividad_id" class="form-control" value="' . $value->act_id . '">';
                                                     echo '<input type="hidden" name="etapa_plantilla_id" id="etapa_plantilla_id" class="form-control" value="' . $value->et_id . '">';
                                                     echo '<input type="hidden" name="proyecto_id" id="proyecto_id" class="form-control" value="' . $_REQUEST['val01'] . '">';
+                                                    echo '<input type="hidden" name="estado" id="estado" class="form-control" value="0">';
                                                     echo '</div>';
                                                     echo '</div>';
-
                                                 endif;
-
                                                 ?>
-
                                         <?php $key2++;
                                             endforeach;
                                         endif; ?>
                                         </td>
                                         <td>
-
                                             <div class="col-12  text-center">
                                                 <input type="checkbox" class="form-check-input" name="check['<?php echo $value->act_id ?>']" id="check" value="<?php echo $value->act_id ?>" checked>
                                             </div>
@@ -102,7 +99,7 @@
                         timer: 1500
                     },
                     setTimeout(function() {
-                        window.location.reload(1);
+                       // window.location.reload(1);
                     }, 1500)
                 )
             }

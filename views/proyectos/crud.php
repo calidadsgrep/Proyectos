@@ -77,7 +77,7 @@
         $.ajax({
             data: data,
             type: "post",
-            url: "?c=proyectos&a=Registrar",
+            url: "?c=proyectos&a=Registrar0",
             success: function(data) {
                 Swal.fire({
                         position: 'top-end',

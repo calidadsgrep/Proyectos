@@ -5,47 +5,63 @@ require_once 'models/Horario.php';
 class HorariosController
 {
 
-    private $model;
+  private $model;
 
-    public function __CONSTRUCT()
-    {
-        $this->model = new Horario();
+  public function __CONSTRUCT()
+  {
+    $this->model = new Horario();
+  }
+
+  public function Index()
+  {
+
+    require_once 'views/layouts/headerc.php';
+    require_once 'views/horarios/obtener.php';
+    require_once 'views/layouts/footer.php';
+  }
+  public function Obtener()
+  {
+    $horario = new Horario();
+    require_once 'views/layouts/headerc.php';
+
+    require_once 'views/horarios/obtener.php';
+    // require_once 'views/layouts/footer.php';
+  }
+  public function Eventos()
+  {
+    $data = $this->model->Obtener($_REQUEST['id']);
+    $color = '#A80300';
+    $textColor = '#ffffff';
+
+    foreach ($data  as $row) {
+      $data[] = array(
+        'id'   => $row["id"],
+        'title'   => $row["dia"],
+        'start'   => $row["fecha"],
+        'end'   => $row["fecha"],
+        'color' => $color,
+        'textColor' => $textColor,
+      );
     }
 
-    public function Index()
-    {
 
-        require_once 'views/layouts/headerc.php';
-        require_once 'views/horarios/obtener.php';
-        require_once 'views/layouts/footer.php';
-    }
-    public function Obtener()
-    {
-        $horario = new Horario();
-        require_once 'views/layouts/headerc.php';
+    echo json_encode($data, JSON_HEX_QUOT | JSON_HEX_TAG);
+  }
 
-        require_once 'views/horarios/obtener.php';
-        // require_once 'views/layouts/footer.php';
-    }
-    public function Eventos()
-    {
-        $data= $this->model->Obtener($_REQUEST['id']);
-        $color='#A80300';
-        $textColor= '#ffffff';
-
-      foreach($data  as $row){
-     $data[] = array(
-            'id'   => $row["id"],
-            'title'   => $row["dia"],
-            'start'   => $row["fecha"],
-            'end'   => $row["fecha"],
-            'color' => $color,
-            'textColor' => $textColor,
-           );}
-        
-
-        echo json_encode($data, JSON_HEX_QUOT | JSON_HEX_TAG);
+  public function Estado()
+  {
 
 
-    }
+    $horarios = $this->model->Ver($_REQUEST['hid']);
+    require_once 'views/horarios/estado.php';
+    //print_r($horarios);     
+  }
+  public function Actualizar()
+  {
+
+    $horario = new Horario();
+    $horario->estado = $_REQUEST['estado'];
+    $horario->id = $_REQUEST['id'];
+    $this->model->Actualizar($horario);
+  }
 }
