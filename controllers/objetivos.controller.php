@@ -1,6 +1,7 @@
 <?php
 require_once 'models/Auth.php';
 require_once 'models/Objetivo.php';
+require_once 'models/Proyecto.php';
 
 class ObjetivosController
 {
@@ -63,9 +64,21 @@ class ObjetivosController
     }
     public function Ver()
     {   
-       $Etapas = new Objetivo();
-        $objindex= $this->model->Obj_index($_REQUEST['pid']);
+        $Etapas = new Objetivo();
+        $plantillas = new Proyecto();
+        $plantillas = $plantillas->Obtener($_REQUEST['pid']);
+        //print_r($plantillas);
+        $objindex= $this->model->Obj_index($plantillas->plantilla_id);
         require_once 'views/objetivos/ver.php';
+       
+    }
+    public function Ver0()
+    {   
+        $Etapas = new Objetivo();
+        
+        //print_r($plantillas);
+        $objindex= $this->model->Obj_index($_REQUEST['pid']);
+        require_once 'views/objetivos/ver0.php';
        
     }
 }

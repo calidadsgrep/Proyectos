@@ -47,8 +47,8 @@ class Proyecto
 
 	}
 
-	public function Registrar(Proyecto $data){
-
+	public function Registrar0(Proyecto $data){
+ print_r($data);
 		try {
 			$stm = "INSERT INTO proyectos(plantilla_id, cliente_id, fecha_inicio,fecha_cierre, nombre)
                              VALUES(?, ?, ?, ?, ?)";

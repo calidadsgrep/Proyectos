@@ -70,7 +70,7 @@
             $.ajax({
                 async: true,
                 type: "POST",
-                url: '?c=plantillas&a=proyecto&pid=<?php echo $_REQUEST['pid']?>',
+                url: '?c=plantillas&a=proyecto0&pid=<?php echo $_REQUEST['pid']?>',
                 //data: 'pid=' + ,
                 success: function(resp) {
                     $('#info').html(resp);
@@ -97,7 +97,7 @@
             $.ajax({
                 async: true,
                 type: "POST",
-                url: '?c=objetivos&a=ver&pid=<?php echo $_REQUEST['pid']; ?>',
+                url: '?c=objetivos&a=ver0&pid=<?php echo $_REQUEST['pid']; ?>',
                 //data: 'pid=' + ,
                 success: function(resp) {
                     $('#info').html(resp);
