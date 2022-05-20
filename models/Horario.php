@@ -21,13 +21,12 @@ class Horario
         }
     }
 
-    public function Obtener($proyecto_id)
+    public function Obtener()
     {
         $stm = $this->pdo->prepare("SELECT horarios.*, actividades.actividad,objetivos.objetivo 
                 FROM horarios,actividades,objetivos 
                 WHERE                
-                 proyecto_id='$proyecto_id'
-                 AND horarios.actividad_id=actividades.id
+                     horarios.actividad_id=actividades.id
                  AND actividades.objetivo_id=objetivos.id                 
                  ");
         $stm->execute();
@@ -48,7 +47,7 @@ class Horario
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
-    
+
 
     public function Registrar(Horario $data)
     {
@@ -85,16 +84,13 @@ class Horario
     }
 
     public function Actualizar(Horario $data)
-	{
+    {
 
-		try {			
-			$sql = "UPDATE horarios SET estado='$data->estado' WHERE id = '$data->id'";
-			$this->pdo->prepare($sql)->execute();
-		} catch (Exception $e) {
-			die($e->getMessage());
-		}
-	}
-
-
-
+        try {
+            $sql = "UPDATE horarios SET estado='$data->estado' WHERE id = '$data->id'";
+            $this->pdo->prepare($sql)->execute();
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }

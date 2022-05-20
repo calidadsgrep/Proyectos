@@ -262,10 +262,10 @@ if ($_SESSION['REMOTE_ADDR'] != $_SERVER['REMOTE_ADDR'] || $_SESSION['HTTP_USER_
             </li>
             <li class="nav-header">Agenda</li>
             <li class="nav-item">
-              <a href="../calendar.html" class="nav-link">
+              <a href="views/horarios/obtener.php" class="nav-link" target="_blank">
                 <i class="nav-icon far fa-calendar-alt"></i>
                 <p>
-                  Calendar
+                  Calendario
                   <span class="badge badge-info right">2</span>
                 </p>
               </a>

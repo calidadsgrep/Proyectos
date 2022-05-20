@@ -39,6 +39,15 @@ class ClientesController
 
     }
 
+    public function Estado(){
+        $cliente = new Cliente();
+        if(isset($_REQUEST['id'])){
+            $cliente = $this->model->Obtener($_REQUEST['id']);
+        };
+          require_once 'views/clientes/estado.php';
+
+    }
+
     public function Guardar(){
      //sleep(10);
      $cliente = new Cliente();
@@ -61,5 +70,17 @@ class ClientesController
      : $this->model->Registrar($cliente);
 
     }
+    public function GuardarE(){
+        //sleep(10);
+        $cliente = new Cliente();
+   
+        $cliente->id=$_REQUEST['id'];
+        
+        $cliente->tipo_cliente_id=$_REQUEST['tipo_cliente_id'];
+     
+        $this->model->ActualizarE($cliente);
+       
+   
+       }
     
 }
