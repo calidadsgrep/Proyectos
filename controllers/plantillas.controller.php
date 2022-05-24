@@ -30,9 +30,13 @@ class PlantillasController
             $plantillas = $this->model->Obtener($_REQUEST['id']);
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         require_once 'views/layouts/validaciones.php'; 
 =======
 >>>>>>> b1044dfbd2936c8622395e45f9fbb96e89a68c3f
+=======
+        require_once 'views/layouts/validaciones.php'; 
+>>>>>>> d882cb72914122faa19936ff89f03b799815439c
         require_once 'views/plantillas/crud.php';
     }
 
