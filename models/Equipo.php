@@ -1,19 +1,16 @@
 <?php
-class Cliente
+class Equipo
 {
     private $pdo;
     public $id;
-    public $nombre;
+    public $nombres;
     public $apellidos;
     public $correo;
-    public $telefono;
-    public $nit;
-    public $ubicacion;
-    public $potencial;
-    public $interesado_en;
-    public $como_se_entero;
-    public $tipo_cliente_id;
-    public $clie_id;
+    public $contacto;
+    public $cliente_id;
+    public $proceso_id;
+
+
 
 
     public function __CONSTRUCT()
@@ -25,19 +22,17 @@ class Cliente
             die($e->getMessage());
         }
     }
+    
 
 
-    public function Listar()
+    public function Listar($id)
     {
 
         try {
-            $result = array();
-            $stm = $this->pdo->prepare("SELECT clientes.* , clientes.id as cli_id  , tipo_clientes.* 
-                                              FROM clientes, tipo_clientes
-                                              WHERE estado_id=1
-                                              AND clientes.tipo_cliente_id = tipo_clientes.id
-                                              AND tipo_cliente_id = 3 
-                                            ");
+            $stm = $this->pdo->prepare("SELECT  equipos.*, procesos.proceso FROM equipos, procesos, clientes
+                                              WHERE cliente_id=$id
+                                              AND equipos.cliente_id=clientes.id
+                                              AND equipos.proceso_id=procesos.id");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
@@ -68,7 +63,7 @@ class Cliente
 
         try {
             $result = array();
-            $stm = $this->pdo->prepare("SELECT * FROM clientes WHERE id =$id ");
+            $stm = $this->pdo->prepare("SELECT * FROM equipos WHERE id =$id ");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
         } catch (Exception $e) {
@@ -76,45 +71,30 @@ class Cliente
         }
     }
 
-    public function Registrar(Cliente $data)
+    public function Registrar(Equipo $data)
     {
 
         try {
 
-            $stm = "INSERT INTO clientes(nombre, apellidos, correo, telefono, nit,   ubicacion, potencial, interesado_en, como_se_entero, estado_id, tipo_cliente_id)
-                             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stm = "INSERT INTO equipos(cliente_id, proceso_id, nombres, apellidos, contacto, correo)
+                             VALUES(?, ?, ?, ?, ?, ?)";
             $this->pdo->prepare($stm)->execute(array(
-                $data->nombre,
+                $data->cliente_id,
+                $data->proceso_id,
+                $data->nombres,
                 $data->apellidos,
+                $data->contacto,
                 $data->correo,
-                $data->telefono,
-                $data->nit,
-                $data->ubicacion,
-                $data->potencial,
-                $data->interesado_en,
-                $data->como_se_entero,
-                $data->estado_id,
-                $data->tipo_cliente_id
+
             ));
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    public function Actualizar(Cliente $data)
+    public function Actualizar(Equipo $data)
     {
-        $id = $data->id;
-        $nombre = $data->nombre;
-        $nit = $data->nit;
-        $correo = $data->correo;
-        $telefono = $data->telefono;
-        $ubicacion = $data->ubicacion;
-        $potencial =       $data->potencial;
-        $interesado_en =       $data->interesado_en;
-        $como_se_entero =       $data->como_se_entero;
-        $tipo_cliente_id = $data->tipo_cliente_id;
-
         try {
-            $sql = "UPDATE clientes SET nombre='$nombre', nit='$nit', correo='$correo', telefono='$telefono', ubicacion='$ubicacion', potencial='$potencial', interesado_en='$interesado_en', como_se_entero='$como_se_entero', tipo_cliente_id='$tipo_cliente_id'  WHERE id = $id";
+            $sql = "UPDATE equipos SET cliente_id='$data->cliente_id', proceso_id='$data->proceso_id', nombres='$data->nombres',  apellidos='$data->apellidos', contacto=$data->contacto, correo = '$data->correo'  WHERE id = $data->id";
             $this->pdo->prepare($sql)->execute();
         } catch (Exception $e) {
             die($e->getMessage());
@@ -122,7 +102,7 @@ class Cliente
     }
     public function ActualizarE(Cliente $data)
     {
-        $id = $data->id;        
+        $id = $data->id;
         $tipo_cliente_id = $data->tipo_cliente_id;
 
         try {

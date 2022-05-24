@@ -55,8 +55,8 @@ class SoportesController
         @$soporte->id = $_REQUEST['id'];
         $soporte->horario_id = $_REQUEST['horario_id'];
         $soporte->ruta_soporte = $dest_path;
-        $soporte->fecha_reg = date('Y-m-d h:i:s a', time());;
-
+        $soporte->fecha_reg = date('Y-m-d h:i:s a', time());
+        $soporte->enlace = date('Y-m-d h:i:s a', time());
         $soporte->id > 0
             ? $this->model->Actualizar($soporte)
             : $this->model->Registrar($soporte);
@@ -80,5 +80,46 @@ class SoportesController
             $soportes = $this->model->Eliminar($_REQUEST['id']);
         } else {
         }
+    }
+
+    public function Contrato()
+    {
+        require_once 'views/soportes/contrato.php';
+    }
+    public function Contrato0()
+    {
+
+        $nombre=$_REQUEST['p_id'];
+        $fileTmpPath = $_FILES['soporte']['tmp_name'];
+        $fileName = $_FILES['soporte']['name'];
+        $fileSize = $_FILES['soporte']['size'];
+        $fileType = $_FILES['soporte']['type'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+        $newFileName = 'contrato_' . $nombre . '.' . $fileExtension;
+
+        $allowedfileExtensions = array('docx', 'pdf');
+        if (in_array($fileExtension, $allowedfileExtensions)) {
+
+            // directory in which the uploaded file will be moved
+            $uploadFileDir = 'views/soportes/contratos/';
+
+            $dest_path = $uploadFileDir . $newFileName;
+            if (!file_exists($uploadFileDir)) {
+                mkdir($uploadFileDir, 0777, true);
+            }
+            if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                $message = 'El archivo se cargó correctamente.';
+                echo "
+                <script>
+                  window.history.back();
+                </script>
+                ";
+            } else {
+                $message = 'Hubo algún error al mover el archivo al directorio de carga. Asegúrese de que el servidor web pueda escribir en el directorio de carga.';
+            }
+        }
+         
+
     }
 }

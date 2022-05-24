@@ -8,6 +8,8 @@ require_once 'models/Proyecto.php';
 require_once 'models/Usuario.php';
 require_once 'models/Etapa_plantilla.php';
 require_once 'models/Horario.php';
+require_once 'models/Cliente.php';
+
 
 
 class ProyectosController
@@ -22,6 +24,7 @@ class ProyectosController
 	public function Index()
 	{
 		$proyectos = $this->model->Listar();
+		//print_r($proyectos);
 		require_once 'views/layouts/header.php';
 		require_once 'views/proyectos/index.php';
 		require_once 'views/layouts/footer.php';
@@ -44,8 +47,9 @@ class ProyectosController
 	public function Crud()
 	{
 
-		$cliente0 = new Usuario();
+		$cliente0 = new Cliente();
 		$clientes = $cliente0->Listar();
+		//print_r($clientes);
 		$plantilla0 = new Plantilla();
 		$plantillas = $plantilla0->Listar();
 		$proyectos = new Proyecto();
@@ -225,7 +229,9 @@ class ProyectosController
 		$act_pro = $actividades->Act_Pro_eta($_REQUEST['val02']);
 		/*HORARIOS  ASIGNADOS*/
 		$asignacion = $asignaciones->Asignado($_REQUEST['val01'], $_REQUEST['val02']);
-		//print_r($asignacion); 
+		/*echo'<pre>';
+		print_r($asignacion); 
+		echo'</pre>';*/
 		require_once 'views/proyectos/ver_gestion.php';
 	}
 	public function Horario()

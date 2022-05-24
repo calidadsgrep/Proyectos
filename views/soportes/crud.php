@@ -7,7 +7,14 @@
                     <input type="hidden" name="horario_id" id="horario_id" class="form-control" value='<?php echo $_REQUEST['id'] ?>' required>
                     <div class="col-12">
                         <div class="form-group">
-                            <input type="file" name="soporte" id="soporte" class="form-control" required>
+                        <label for="">Soporte</label>
+                            <input type="file" name="soporte" id="soporte" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="">Enlace</label>
+                            <input type="text" name="enlace" id="enlace" class="form-control" >
                         </div>
                     </div>
                 </div>

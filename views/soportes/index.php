@@ -13,6 +13,7 @@
                 <thead>
                     <tr>
                         <th>Nombre Archivo</th>
+                        <th>Enlace</th>
                         <th>Tamaño</th>
                         <th></th>
                     </tr>
@@ -24,6 +25,9 @@
                                 $filepath = $value->ruta_soporte;
                                 $filename = preg_replace('/^.+[\\\\\\/]/', '', $filepath);  // filename.jpg
                                 echo $filename ?></td>
+                            <td>
+                            <td><?php $value->enlace; ?>
+                               </td>
                             <td>
                                 <?php echo filesize($filepath) . ' kb'; ?>
                             </td>

@@ -8,73 +8,69 @@
                     <div class="col-4">
                         <div class="form-group ">
                             <label for="nombre">Nombre</label>
-                            <input type="text" name="nombre" class="form-control" value='<?php echo $cliente->nombre ?>' required>
+                            <input type="text" name="nombre" class="form-control" value='<?php echo $cliente->nombre ?>' disabled>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="nombre">Apellidos</label>
-                            <input type="text" name="apellidos" class="form-control" value='<?php echo $cliente->apellidos ?>' required>
+                            <input type="text" name="apellidos" class="form-control" value='<?php echo $cliente->apellidos ?>' disabled>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="nombre">Correo</label>
-                            <input type="email" name="correo" class="form-control" value='<?php echo $cliente->correo ?>' required>
+                            <input type="email" name="correo" class="form-control" value='<?php echo $cliente->correo ?>' disabled>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="nombre">Telefono</label>
-                            <input type="phone" name="telefono" class="form-control" value='<?php echo $cliente->telefono ?>' required>
+                            <input type="phone" name="telefono" class="form-control" value='<?php echo $cliente->telefono ?>' disabled>
                         </div>
                     </div>
 
                     <div class="col-4">
                         <div class="form-group">
                             <label for="nombre">Nit/Cedula</label>
-                            <input type="text" name="nit" class="form-control" value='<?php echo $cliente->nit ?>' required>
+                            <input type="text" name="nit" class="form-control" value='<?php echo $cliente->nit ?>' disabled>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="nombre">Ubicación</label>
-                            <input type="text" name="ubicacion" class="form-control" value='<?php echo $cliente->ubicacion ?>' required>
+                            <input type="text" name="ubicacion" class="form-control" value='<?php echo $cliente->ubicacion ?>' disabled>
                         </div>
                     </div>
-
+                    
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="nombre">Potencial</label>
-                            <select name="potencial" id="potencial" class="form-control">
-                                <option value=""> Seleccionar</option>
-                                <option <?php echo $cliente->potencial == 'Alto' ? 'selected' : ''  ?> value="Alto"> Alto</option>
-                                <option <?php echo $cliente->potencial == 'Medio' ? 'selected' : '' ?> value="Medio"> Medio</option>
-                                <option <?php echo $cliente->potencial == 'Bajo' ? 'selected' : '' ?> value="Bajo"> Bajo</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="nombre">Enteresado En</label>
-                            <input type="text" name="interesado_en" class="form-control" value='<?php echo $cliente->interesado_en ?>' required>
+                            <label for="nombre">Interesado En</label>
+                            <input type="text" name="interesado_en" class="form-control" value='<?php echo $cliente->interesado_en ?>' disabled>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="nombre">Como Se Entero</label>
-                            <input type="text" name="como_se_entero" class="form-control" value='<?php echo $cliente->como_se_entero ?>' required>
+                            <input type="text" name="como_se_entero" class="form-control" value='<?php echo $cliente->como_se_entero ?>' disabled>
                         </div>
                     </div>
                 </div>
-                <?php if (empty($cliente->tipo_cliente_id)) : ?>
-                    <input type="hidden" name="tipo_cliente_id" value='1'>
-                <?php else : ?>
-                    <input type="hidden" name="tipo_cliente_id" value='<?php echo $cliente->tipo_cliente_id ?>'>
-                <?php endif; ?>
-                <input type="hidden" name="id" value='<?php echo $cliente->id ?>'>
+                <div class="col-12">
+                        <div class="form-group">
+                            <label for="nombre">Modificar Estado</label>
+                            <select name="tipo_cliente_id" id="tipo_cliente_id" class="form-control">
+                                <option value=""> Seleccionar</option>
+                                <option <?php echo $cliente->tipo_cliente_id == '1' ? 'selected' : ''  ?> value="1"> Interesado</option>
+                                <option <?php echo $cliente->tipo_cliente_id == '2' ? 'selected' : '' ?> value="2"> Prospecto</option>
+                                <option <?php echo $cliente->tipo_cliente_id == '3' ? 'selected' : '' ?> value="3"> Cliente</option>
+                            </select>
+                        </div>
+                    </div>
+               <input type="hidden" name="id" value='<?php echo $cliente->id ?>'>
                 <input type="button" id="guardar" class="btn btn-default btn-block" value="Enviar">
             </form>
+
         </div>
     </div>
 </section>
@@ -100,16 +96,17 @@
         $.ajax({
             data: data,
             type: "post",
-            url: "?c=clientes&a=guardar",
+            url: "?c=clientes&a=guardarE",
             success: function(data) {
                 Swal.fire({
+                        
                         icon: 'success',
                         title: 'El cliente se creo con exito',
                         showConfirmButton: false,
                         timer: 1500
                     },
                     setTimeout(function() {
-                       window.location.reload(1);
+                      window.location.reload(1);
                     }, 1500)
                 )
             }

@@ -39,12 +39,9 @@
                         </div>
                     </div>
                 </div>
-
-
                 <input type="hidden" name="created" value='<?php echo date('Y-m-d') ?>'>
                 <input type="hidden" name="modified" value='<?php echo date('Y-m-d') ?>'>
                 <input type="button" id="guardar" class="btn btn-default btn-block" value="Enviar">
-
             </form>
 
         </div>

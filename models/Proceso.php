@@ -1,11 +1,11 @@
 <?php
-class Soporte
+class Proceso
 {
     private $pdo;
     public $id;
-    public $horario_id;
-    public $ruta_soporte;
-    public $fecha_reg;
+    public $proceso;
+    public $sigla;
+
 
     public function __CONSTRUCT()
     {
@@ -16,12 +16,11 @@ class Soporte
         }
     }
 
-
-    public function Obtener($id)
+    public function Listar()
     {
 
         try {
-            $stm = $this->pdo->prepare("SELECT * FROM horario_soportes WHERE horario_id =$id ");
+            $stm = $this->pdo->prepare("SELECT * FROM procesos");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
@@ -29,37 +28,42 @@ class Soporte
         }
     }
 
-    
+    public function Obtener($id)
+    {
 
+        try {
+            $stm = $this->pdo->prepare("SELECT * FROM procesos WHERE id =$id ");
+            $stm->execute();
+            return $stm->fetch(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
-    public function Registrar(Soporte $data)
+    public function Registrar(Proceso $data)
     {
 
         try {
 
-            $stm = "INSERT INTO horario_soportes(horario_id, ruta_soporte, fecha_reg,enlace)
-                             VALUES(?, ?, ?)";
+            $stm = "INSERT INTO procesos(proceso, sigla)
+                             VALUES(?, ?)";
             $this->pdo->prepare($stm)->execute(array(
-                $data->horario_id,
-                $data->ruta_soporte,
-                $data->fecha_reg,
-                $data->enlace,
-
+                $data->proceso,
+                $data->sigla,
             ));
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
 
-    public function Actualizar(Soporte $data)
+    public function Actualizar(Proceso $data)
     {
         $id = $data->id;
-        $horario_id = $data->horario_id;
-        $ruta_soporte = $data->ruta_soporte;
-        $fecha_reg = $data->fecha_reg;
+        $proceso = $data->proceso;
+        $sigla = $data->sigla;
 
         try {
-            $sql = "UPDATE soportes SET horario_id='$horario_id', ruta_soporte='$ruta_soporte', ubicacion='$fecha_reg', enlace='$data->enlace' WHERE id = $id";
+            $sql = "UPDATE procesos SET proceso='$proceso', sigla='$sigla'  WHERE id = $id";
             $this->pdo->prepare($sql)->execute();
         } catch (Exception $e) {
             die($e->getMessage());
@@ -70,7 +74,7 @@ class Soporte
     {
 
         try {
-            $sql = "DELETE  FROM  horario_soportes WHERE id=$id ";
+            $sql = "DELETE  FROM  procesos WHERE id=$id ";
             $this->pdo->prepare($sql)->execute();
         } catch (\Throwable $th) {
             //throw $th;

@@ -1,6 +1,7 @@
 <?php
 require_once 'models/Auth.php';
 require_once 'models/Actividad.php';
+require_once 'models/Proceso.php';
 
 class ActividadesController
 {
@@ -20,6 +21,8 @@ class ActividadesController
     public function Crud()
     {
         $Etapas = new Actividad();
+        $proceso = new Proceso();
+        $procesos = $proceso->Listar();  
         if (isset($_REQUEST['id'])) {
             $Etapas = $this->model->Obtener($_REQUEST['id']);
         }
@@ -34,8 +37,6 @@ class ActividadesController
         $actividad->actividad = $_REQUEST['actividad'];
         $actividad->proceso = $_REQUEST['proceso'];
         $actividad->soporte = $_REQUEST['soporte'];
-
-
         $actividad->id > 0 ?
             $this->model->Actualizar($actividad)
             : $this->model->Registrar($actividad);
@@ -48,7 +49,6 @@ class ActividadesController
         require_once 'views/layouts/header.php';
         require_once 'views/Etapas/gestion.php';
         // require_once 'views/layouts/footer.php';
-
     }
 
     public function Proyecto()

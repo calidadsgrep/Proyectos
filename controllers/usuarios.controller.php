@@ -2,6 +2,8 @@
 require_once 'models/Auth.php';
 require_once 'models/Usuario.php';
 require_once 'models/Tipo_usuario.php';
+require_once 'models/Informe.php';
+
 
 class UsuariosController
 {
@@ -20,8 +22,17 @@ class UsuariosController
 
     public function Home()
     {
+        $cliente = new Informe();
+        $clientes = $cliente->Clientes();
+        $proyectos = $cliente->Proyectos();
+        $planear = $cliente->Info_planear();
+        print_r($planear);
+        $horario = $cliente->Info_crono();
+        $fini_act = $cliente->Info_fechamin();
+        $ffin_act = $cliente->Info_fechamax();
+
         require_once 'views/layouts/header.php';
-        require_once 'views/usuarios/home.php';
+        require_once 'views/informes/home.php';
         require_once 'views/layouts/footer.php';
     }
 
@@ -31,7 +42,6 @@ class UsuariosController
         session_reset();
         session_destroy();
         header('Location: ../Proyectos');
-        
     }
     public function Login()
     {
@@ -65,7 +75,7 @@ class UsuariosController
     {
         $tipoUsuario = new Tipousuario;
         $tipoUsuarios = $tipoUsuario->Tipos_usuarios();
-        $usuarios= $this->model->Listar();
+        $usuarios = $this->model->Listar();
         require_once 'views/layouts/header.php';
         require_once 'views/usuarios/index.php';
         require_once 'views/layouts/footer.php';
@@ -77,8 +87,8 @@ class UsuariosController
         $tipoUsuario = new Tipousuario;
         $tipoUsuarios = $tipoUsuario->Tipos_usuarios();
         if (isset($_REQUEST['id'])) {
-            $usuario=  $this->model->Obtener($_REQUEST['id']);
-             //   print_r($usuario);
+            $usuario =  $this->model->Obtener($_REQUEST['id']);
+            //   print_r($usuario);
         }
         require_once 'views/layouts/validaciones.php';
         require_once 'views/usuarios/crud.php';
@@ -99,9 +109,8 @@ class UsuariosController
         $usuario->tipo_usuario = $_REQUEST['tipo'];
         $usuario->created = $_REQUEST['created'];
         $usuario->modified = $_REQUEST['modified'];
-
         $usuario->id > 0 ?
-              $this->model->Actualizar($usuario)
+            $this->model->Actualizar($usuario)
             : $this->model->Registrar($usuario);
     }
 

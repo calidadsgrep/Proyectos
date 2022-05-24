@@ -9,7 +9,9 @@
                         <table id="example1" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
+                                    <th>Proyecto</th>
+                                    <th>Cliente</th>
+                                    <th>Contrato</th>
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Cierre</th>                                    
                                     <th>Menu</th>
@@ -19,10 +21,13 @@
                                 <?php foreach($proyectos as $proyecto):?>
                                     <tr>                                        
                                         <td><?php echo  $proyecto->nombre ?></td>
+                                        <td><?php echo  $proyecto->cliente ?></td>
+                                        <td class="text-center"> <a href="views/soportes/contratos/contrato_<?php echo  $proyecto->id ?>.pdf" target="_blank" rel="noopener noreferrer"><span class="fa fa-file"></span></a></td>
                                         <td><?php echo  $proyecto->fecha_inicio ?></td>
                                         <td><?php echo  $proyecto->fecha_cierre ?></td>
                                         <td>
                                             <a class="" onclick="Edit('<?php echo $proyecto->id ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
+                                            <a class="" onclick="Contrato('<?php echo $proyecto->id ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-copy"></i></a>
                                             <a href="?c=proyectos&a=gestion&pid=<?php echo $proyecto->id ?>" ><i class="fa fa-address-book"></i> </a>
                                         </td>
                                     </tr>
@@ -30,7 +35,8 @@
                             </tbody>
                             <tfooter>
                                 <tr>
-                                <th>Nombre</th>
+                                <th>Proyecto</th>
+                                <th>Cliente</th>
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Cierre</th>                                    
                                     <th>Menu</th>
@@ -74,6 +80,19 @@
         $.ajax({
             type: "POST",
             url: '?c=proyectos&a=crud',
+            data: {
+                id: id
+            },
+            success: function(resp) {
+                $('#index').html(resp);
+                $('#respuesta').html("");
+            }
+        });
+    }
+    function Contrato(id) {
+        $.ajax({
+            type: "POST",
+            url: '?c=soportes&a=contrato',
             data: {
                 id: id
             },
