@@ -26,18 +26,17 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="objet" class="nav-link">
+                            <a id="obj" class="nav-link">
                                 <i class="far fa-envelope"></i> Objetivos
                                 <span class="badge bg-warning float-right"><?php echo  $objetivos->num_obj; ?></span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="horario" class="nav-link">
-                                <i class="far fa-file-alt"></i>Actividades
+                            <a id="hora" class="nav-link">
+                                <i class="far fa-file-alt"></i> Actividades
                                 <span class="badge bg-warning float-right"><?php echo  count($act_pro) ?></span>
                             </a>
                         </li>
-
                     </ul>
                 </div>
                 <!-- /.card-body -->

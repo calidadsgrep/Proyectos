@@ -21,10 +21,9 @@ class Soporte
     {
 
         try {
-            $result = array();
-            $stm = $this->pdo->prepare("SELECT * FROM clientes WHERE id =$id ");
+            $stm = $this->pdo->prepare("SELECT * FROM horario_soportes WHERE horario_id =$id ");
             $stm->execute();
-            return $stm->fetch(PDO::FETCH_OBJ);
+            return $stm->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -35,7 +34,7 @@ class Soporte
 
         try {
 
-          $stm = "INSERT INTO horario_soportes(horario_id, ruta_soporte, fecha_reg)
+            $stm = "INSERT INTO horario_soportes(horario_id, ruta_soporte, fecha_reg)
                              VALUES(?, ?, ?)";
             $this->pdo->prepare($stm)->execute(array(
                 $data->horario_id,
@@ -60,6 +59,17 @@ class Soporte
             $this->pdo->prepare($sql)->execute();
         } catch (Exception $e) {
             die($e->getMessage());
+        }
+    }
+
+    public function Eliminar($id)
+    {
+
+        try {
+            $sql = "DELETE  FROM  horario_soportes WHERE id=$id ";
+            $this->pdo->prepare($sql)->execute();
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 }

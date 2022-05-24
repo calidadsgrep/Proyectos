@@ -1,8 +1,7 @@
+
 <div class="card card-primary card-outline">
   <div class="card-header ">
-    <h2>ETAPAS
-      <button class="btn btn-primary float-right" id="add_etapa">Crear Nueva</button>
-    </h2>
+    <h2>ETAPAS</h2>
   </div>
   <div class="card-body p-0">
     <div class="mailbox-read-info">
@@ -14,7 +13,7 @@
             <div class="col-md-4">
               <div class="card">
                 <div class="card-header">
-                  <div class="card-title"><?php echo $etapa->notacion ?>   </div><span class="badge badge-success float-right"> Act:<?php echo $etapasAct->actividades ?></span>
+                  <div class="card-title"><?php echo $etapa->notacion ?>   </div><span class="badge badge-success float-right"> Actividades:  <?php echo $etapasAct->actividades ?></span>
                 </div>
                 <div class="card-body"> <a class="btn btn-default btn-block" id="obj" onclick="InfoEtapa('<?php echo $etapa->id ?>')" data-toggle="modal" data-target="#modelId" ><i class="fa fa-edit"></i> Agregar info </a>
                 </div>
@@ -78,11 +77,18 @@
   });
 
   function InfoEtapa(val) {
+
+    var eid= val;
+    var pid=<?php echo $_REQUEST['pid'] ?>;
+    
     $.ajax({
       async: true,
       type: "POST",
       url: '?c=proyectos&a=etapa_add',
-      data: 'eid=' + val,
+      data: {
+        eid:eid,
+        pid:pid
+      },
       success: function(resp) {
         $('#infoetapa').html(resp);
         $('#respuesta').html("");

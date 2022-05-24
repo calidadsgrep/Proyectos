@@ -28,30 +28,49 @@ class ProyectosController
 	}
 
 	public function Etapa_index()
-	{
+	{   $plantillas = new Proyecto();
 		$proyectos = $this->model->Listar();
+		
 		$etapa = new Etapa();
-		$etapas = $etapa->Listar($_REQUEST['pid']);
-		$etapasActs = $etapa->Etapa_act($_REQUEST['pid']);
+		
+		$plantillas = $this->model->Obtener($_REQUEST['pid']);
+		$etapas = $etapa->Listar($plantillas->plantilla_id);
+		$etapasActs = $etapa->Etapa_act($plantillas->plantilla_id);
 		//print_r($etapasActs);
 		require_once 'views/proyectos/etapa_index.php';
 	}
+
 
 	public function Crud()
 	{
 
 		$cliente0 = new Usuario();
 		$clientes = $cliente0->Listar();
-
 		$plantilla0 = new Plantilla();
 		$plantillas = $plantilla0->Listar();
-
 		$proyectos = new Proyecto();
 		if (isset($_REQUEST['id'])) {
 			$proyectos = $this->model->Obtener($_REQUEST['id']);
 		}
 		require_once 'views/proyectos/crud.php';
 	}
+
+
+	public function Registrar0(){	
+
+		$proyectos = new Proyecto();
+		$proyectos->id = $_REQUEST['id'];
+		$proyectos->nombre  = $_REQUEST['nombre'];
+		$proyectos->fecha_inicio = $_REQUEST['fecha_inicio'];
+		$proyectos->fecha_cierre = $_REQUEST['fecha_cierre'];
+		$proyectos->cliente_id = $_REQUEST['cliente_id'];
+	    $proyectos->plantilla_id = $_REQUEST['plantilla_id'];
+	    
+		$proyectos->id > 0 
+		   ? $proyec =$proyectos->Actualizar($proyectos)
+		   : $proyec =$proyectos->Registrar0($proyectos); 
+     }
+
 
 
 	public function Registrar()
@@ -156,11 +175,12 @@ class ProyectosController
 		$objetivo = new Objetivo();
 		$actividades = new Actividad();
 		$proyecto = $this->model->Obtener($_REQUEST['pid']);
-		$etapas = $etapa->Listar($_REQUEST['pid']);
-		$objetivos = $objetivo->Obj_pro($_REQUEST['pid']);
-		$objindex = $objetivo->Obj_index($_REQUEST['pid']);
-		$act_pro = $actividades->Act_Pro($_REQUEST['pid']);
-		$_SESSION['pid'] = $_REQUEST['pid'];
+	   
+		$etapas = $etapa->Listar($proyecto->plantilla_id);
+		$objetivos = $objetivo->Obj_pro($proyecto->plantilla_id);
+		$objindex = $objetivo->Obj_index($proyecto->plantilla_id);
+		$act_pro = $actividades->Act_Pro($proyecto->plantilla_id);
+		$_SESSION['pid'] =  $proyecto->plantilla_id;
 
 		require_once 'views/layouts/header.php';
 		require_once 'views/proyectos/gestion.php';
@@ -218,6 +238,7 @@ class ProyectosController
 		$actividad =	$_REQUEST['actividad_id'];
 		$etapa = $_REQUEST['etapa_plantilla_id'];
 		$proyecto_id = $_REQUEST['proyecto_id'];
+		$estado = $_REQUEST['estado'];
 		$check = $_REQUEST['check'];
 		if ($check != '') {
 			foreach ($check as $key => $value) :
@@ -228,6 +249,7 @@ class ProyectosController
 				$horario->hora2 = $hora2[$value];
 				$horario->etapa_plantilla_id = $etapa;
 				$horario->proyecto_id = $proyecto_id;
+				$horario->estado = $estado;
 				$horario->Registrar($horario);
 
 
