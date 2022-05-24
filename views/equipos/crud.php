@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <?php if ($equipo->id > 0) : ?>
-                    <input type="hidden" name="cliente_id" value='<?php echo $equipo->id ?>'>
+                    <input type="hidden" name="cliente_id" value='<?php echo $equipo->cliente_id ?>'>
                 <?php else : ?> 
                     <input type="hidden" name="cliente_id" value='<?php echo $_REQUEST['clie_id'] ?>'>
                 <?php endif; ?>
@@ -79,7 +79,6 @@
             url: "?c=equipos&a=guardar",
             success: function(data) {
                 Swal.fire({
-
                         icon: 'success',
                         title: 'El registro se creo con exito',
                         showConfirmButton: false,

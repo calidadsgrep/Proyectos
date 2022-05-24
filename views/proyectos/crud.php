@@ -18,6 +18,7 @@
                             <input type="date" name="fecha_inicio" class="form-control" value='<?php echo $proyectos->fecha_inicio ?>' required>
                         </div>
                     </div>
+
                     <div class="col-4">
                         <div class="form-group">
                             <label for="nombre">Fecha cierre</label>
@@ -29,7 +30,7 @@
                             <label for="nombre">Cliente</label>
                         <select name="cliente_id" id="cliente_id" class="form-control">
                             <?php foreach($clientes as $cliente): ?>
-                            <option value="<?php echo $cliente->id ?>"> <?php echo $cliente->nombres?></option>
+                            <option value="<?php echo $cliente->cli_id ?>"> <?php echo  $cliente->cli_id.$cliente->nombre?></option>
                             <?php endforeach; ?>
                         </select>   
                         </div>
@@ -44,15 +45,11 @@
                         </select>   
                         </div>
                     </div>
-               </div>
-                
-               <input type="hidden" name="id" value='<?php echo $proyectos->id ?>'>            
-                
-                <input type="button" id="guardar" class="btn btn-default btn-block" value="Enviar">
-
-            </form>
-
-        </div>
+               </div>                
+               <input type="hidden" name="id" value='<?php echo $proyectos->id ?>'>   
+               <input type="button" id="guardar" class="btn btn-default btn-block" value="Enviar">
+</form>
+</div>
     </div>
 </section>
 <!-- /.content -->
@@ -87,7 +84,7 @@
                         timer: 1500
                     },
                     setTimeout(function() {
-                       window.location.reload(1);
+                     window.location.reload(1);
                     }, 1500)
                 )
             }

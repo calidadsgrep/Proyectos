@@ -55,8 +55,8 @@ class ClientesController
      $cliente->id=$_REQUEST['id'];
      $cliente->nombre=$_REQUEST['nombre'];
      $cliente->apellidos=$_REQUEST['apellidos'];
-     $cliente->correo=$_REQUEST['correo'];
-     $cliente->telefono=$_REQUEST['telefono'];
+    echo  $cliente->correo=$_REQUEST['correo'];
+    echo  $cliente->telefono=$_REQUEST['telefono'];
      $cliente->nit=$_REQUEST['nit'];
      $cliente->ubicacion=$_REQUEST['ubicacion'];
      $cliente->potencial=$_REQUEST['potencial'];

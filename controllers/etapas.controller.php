@@ -32,12 +32,11 @@ class EtapasController
         $etapa = new Etapa();
         $etapa->proyecto_id    = $_REQUEST['proyecto_id'];
         $etapa->notacion = $_REQUEST['notacion'];
-
-
         $etapa->id > 0 ?
             $this->model->Actualizar($etapa)
             : $this->model->Registrar($etapa);
     }
+
 
     public function Gestion()
     {

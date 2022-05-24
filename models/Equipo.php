@@ -22,6 +22,7 @@ class Equipo
             die($e->getMessage());
         }
     }
+    
 
 
     public function Listar($id)
@@ -62,7 +63,7 @@ class Equipo
 
         try {
             $result = array();
-            $stm = $this->pdo->prepare("SELECT * FROM clientes WHERE id =$id ");
+            $stm = $this->pdo->prepare("SELECT * FROM equipos WHERE id =$id ");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
         } catch (Exception $e) {

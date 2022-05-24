@@ -29,17 +29,21 @@ class Soporte
         }
     }
 
+    
+
+
     public function Registrar(Soporte $data)
     {
 
         try {
 
-            $stm = "INSERT INTO horario_soportes(horario_id, ruta_soporte, fecha_reg)
+            $stm = "INSERT INTO horario_soportes(horario_id, ruta_soporte, fecha_reg,enlace)
                              VALUES(?, ?, ?)";
             $this->pdo->prepare($stm)->execute(array(
                 $data->horario_id,
                 $data->ruta_soporte,
                 $data->fecha_reg,
+                $data->enlace,
 
             ));
         } catch (Exception $e) {
@@ -55,7 +59,7 @@ class Soporte
         $fecha_reg = $data->fecha_reg;
 
         try {
-            $sql = "UPDATE soportes SET horario_id='$horario_id', ruta_soporte='$ruta_soporte', ubicacion='$fecha_reg'  WHERE id = $id";
+            $sql = "UPDATE soportes SET horario_id='$horario_id', ruta_soporte='$ruta_soporte', ubicacion='$fecha_reg', enlace='$data->enlace' WHERE id = $id";
             $this->pdo->prepare($sql)->execute();
         } catch (Exception $e) {
             die($e->getMessage());

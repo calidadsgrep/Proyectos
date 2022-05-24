@@ -35,14 +35,19 @@ class Horario
 
     public function Asignado($proyecto_id, $etapa_id)
     {
-        $stm = $this->pdo->prepare("SELECT horarios.*, actividades.actividad,objetivos.objetivo 
-                FROM horarios,actividades,objetivos 
+        $stm = $this->pdo->prepare("SELECT horarios.*, actividades.*,objetivos.objetivo,procesos.proceso, equipos.*, proyectos.*
+                FROM horarios,actividades,objetivos, procesos, equipos, proyectos 
                 WHERE                
                  proyecto_id='$proyecto_id'
                  AND
                  etapa_plantilla_id='$etapa_id'
+                 AND proyectos.id=horarios.proyecto_id   
                  AND horarios.actividad_id=actividades.id
-                 AND actividades.objetivo_id=objetivos.id                 
+                 AND actividades.objetivo_id=objetivos.id 
+                 AND actividades.responsable=procesos.id 
+                 AND equipos.cliente_id=proyectos.cliente_id 
+
+                 AND actividades.responsable=equipos.proceso_id                 
                  ");
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -69,7 +74,7 @@ class Horario
             die($e->getMessage());
         }
     }
-
+    
     public function Ver($hid)
     {
         $stm = $this->pdo->prepare("SELECT horarios.*, actividades.actividad,objetivos.objetivo 
@@ -85,7 +90,6 @@ class Horario
 
     public function Actualizar(Horario $data)
     {
-
         try {
             $sql = "UPDATE horarios SET estado='$data->estado' WHERE id = '$data->id'";
             $this->pdo->prepare($sql)->execute();

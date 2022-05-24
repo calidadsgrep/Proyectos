@@ -67,12 +67,14 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="tipo_cliente_id" value='1'>
+                <?php if (empty($cliente->tipo_cliente_id)) : ?>
+                    <input type="hidden" name="tipo_cliente_id" value='1'>
+                <?php else : ?>
+                    <input type="hidden" name="tipo_cliente_id" value='<?php echo $cliente->tipo_cliente_id ?>'>
+                <?php endif; ?>
                 <input type="hidden" name="id" value='<?php echo $cliente->id ?>'>
                 <input type="button" id="guardar" class="btn btn-default btn-block" value="Enviar">
-
             </form>
-
         </div>
     </div>
 </section>
@@ -101,14 +103,13 @@
             url: "?c=clientes&a=guardar",
             success: function(data) {
                 Swal.fire({
-                        
                         icon: 'success',
                         title: 'El cliente se creo con exito',
                         showConfirmButton: false,
                         timer: 1500
                     },
                     setTimeout(function() {
-                      window.location.reload(1);
+                       window.location.reload(1);
                     }, 1500)
                 )
             }

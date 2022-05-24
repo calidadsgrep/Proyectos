@@ -24,7 +24,7 @@ class Proyecto
 
 		try {
 			$result = array();
-            $stm = $this->pdo->prepare("SELECT * FROM proyectos ");
+            $stm = $this->pdo->prepare("SELECT proyectos.*,clientes.nombre as cliente FROM proyectos,clientes WHERE proyectos.cliente_id= clientes.id");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
 		} catch (Exception $e) {
@@ -48,7 +48,7 @@ class Proyecto
 	}
 
 	public function Registrar0(Proyecto $data){
- print_r($data);
+ //print_r($data);
 		try {
 			$stm = "INSERT INTO proyectos(plantilla_id, cliente_id, fecha_inicio,fecha_cierre, nombre)
                              VALUES(?, ?, ?, ?, ?)";

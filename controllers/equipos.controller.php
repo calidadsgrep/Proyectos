@@ -14,12 +14,13 @@ class EquiposController
         $this->model = new Equipo();
     }
 
+
     public function Index()
     {
         
         require_once 'views/layouts/header.php';
         $equipos= $this->model->Listar($_REQUEST['cli_id']);   
-       // print_r($equipos)  ;          
+      // print_r($equipos)  ;          
         require_once 'views/equipos/index.php';
         require_once 'views/layouts/footer.php';
     }
@@ -30,10 +31,9 @@ class EquiposController
         $proceso=new Proceso();
         $procesos= $proceso->Listar();
         if(isset($_REQUEST['id'])){
-            $equipo = $this->model->Obtener($_REQUEST['id']);
+            $equipo = $this->model->Obtener($_REQUEST['id']);          
         };
           require_once 'views/equipos/crud.php';
-
     }
 
     public function Estado(){

@@ -22,8 +22,8 @@
                             <tbody>
                                 <?php foreach ($usuarios as $usuario) : ?>
                                     <tr>
-                                        <td><?php echo  $usuario->nombres ?></td>
-                                        <td><?php echo  $usuario->apellidos ?></td>
+                                        <td><?php echo  ucwords($usuario->nombres)  ?></td>
+                                        <td><?php echo  ucwords($usuario->apellidos) ?></td>
                                         <td><?php echo  $usuario->tipo_identificacion . ' ' . $usuario->num_identificacion ?></td>
                                         <td><?php echo  $usuario->telefono ?></td>
                                         <td><?php echo  $usuario->correo ?></td>

@@ -22,7 +22,7 @@
                             <tbody>
                                 <?php foreach ($clientes as $cliente) : ?>
                                     <tr>
-                                        <td><?php echo  $cliente->nombre;  ?>
+                                        <td><?php echo  strtoupper($cliente->nombre);?>
                                             <?php foreach ($seguimientos as $seguimiento) : ?>
                                                 <?php if ($seguimiento->cliente_id == $cliente->cli_id) : ?>
                                                     <a href="?c=seguimientos&a=index&cli_id=<?php echo $cliente->cli_id ?>"><span class="right badge badge-success"><?php echo  $seguimiento->cant ?> Seguimientos</span></a>
@@ -36,7 +36,7 @@
                                         <td><?php echo  $cliente->estado_id ? 'Activo' : 'Inactivo'; ?></td>
                                         <td>
                                             <?php if ($cliente->tipo_cliente == 'Cliente') : ?>
-                                                <a class="" onclick="Equipo('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default" title="Registrar Equipo de trabajo "><i class="fa fa-users"></i></a>
+                                                <a class="" onclick="Equipo('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default" title="Registrar miembro del equipo de trabajo "><i class="fa fa-user"></i></a>
                                                 <a href="?c=equipos&a=index&cli_id=<?php echo $cliente->cli_id ?>" class=""  title="Gestionar Equipo de trabajo "><i class="fa fa-users"></i></a>
      
                                             <?php endif; ?>

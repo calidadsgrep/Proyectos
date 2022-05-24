@@ -105,6 +105,8 @@ class Cliente
         $id = $data->id;
         $nombre = $data->nombre;
         $nit = $data->nit;
+        $correo = $data->correo;
+        $telefono = $data->telefono;
         $ubicacion = $data->ubicacion;
         $potencial =       $data->potencial;
         $interesado_en =       $data->interesado_en;
@@ -112,7 +114,7 @@ class Cliente
         $tipo_cliente_id = $data->tipo_cliente_id;
 
         try {
-            $sql = "UPDATE clientes SET nombre='$nombre', nit='$nit', ubicacion='$ubicacion', potencial='$potencial', interesado_en='$interesado_en', como_se_entero='$como_se_entero', tipo_cliente_id='$tipo_cliente_id'  WHERE id = $id";
+            $sql = "UPDATE clientes SET nombre='$nombre', nit='$nit', correo='$correo', telefono='$telefono', ubicacion='$ubicacion', potencial='$potencial', interesado_en='$interesado_en', como_se_entero='$como_se_entero', tipo_cliente_id='$tipo_cliente_id'  WHERE id = $id";
             $this->pdo->prepare($sql)->execute();
         } catch (Exception $e) {
             die($e->getMessage());

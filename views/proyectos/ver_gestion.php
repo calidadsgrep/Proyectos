@@ -1,63 +1,16 @@
-<!--<div class="card card-primary card-outline">
-    <div class="card-header">Gestión</div>
-    <div class="card-body p-0">
-        <div class="container">
-            <div class="mailbox-read-info">
-            </div>
-            <form name="form_horario" id="form_horario">
-                <div class="row">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-
-                                <th>Objetivo</th>
-                                <th>Actividad</th>
-                                <th>Horario</th>
-                                <th>Soportes</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php //echo'<pre>';  print_r($asignacion); echo'</pre>';
-                            foreach ($asignacion as  $value) : ?>
-                                <tr>
-                                    <td WIDTH="10%"><?php echo $value->objetivo ?></td>
-                                    <td WIDTH="45%"> <?php echo $value->actividad ?>
-                                        <?php
-                                        echo $value->estado == 1 ? '<span class="badge badge-success float-right">Cumple</span>' : '<span class="badge badge-danger float-right">Aun no Cumple</span>';
-                                        ?> </td>
-                                    <td><?php echo $value->fecha . '  ' . $value->hora1 . ' a ' . $value->hora2 ?> <span class="badge float-right"><?php echo ucwords($value->dia) ?></span></td>
-                                    <td><a class="" id="soporteVer" onclick="soporteVer('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="soporte"><i class="fa fa-paperclip"></i></a>
-                                        <a class="" id="compromisosVer" onclick="compromisosVer('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="Compromisos"><i class="fa fa-clipboard"></i></a>
-                                    </td>
-                                    <td>
-                                        <a class="" id="soporte" onclick="soporte('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="soporte"><i class="fa fa-paperclip"></i></a>
-                                        <a id="compromisos" onclick="compromisos('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="compromisos"><i class="fa fa-clipboard"></i></a>
-                                        <a id="estados" onclick="Estado('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="estado"> <i class="fa fa-clock"></i></a>
-                                    </td>
-                                </tr>
-                            <?php
-                            endforeach; ?>
-                        </tbody>
-                    </table>
-            </form>
-        </div>
-    </div>
-</div>-->
 <div class="col-md-12">
     <h3 class="text-center">
-        
-    <?php
-    if(!empty($asignacion))
-       echo $asignacion[0]->objetivo;
-     else
-     echo '<h4 class="text-center">No hay actividades programadas</h4>';
-     ?>
-</h3>
+
+        <?php
+        if (!empty($asignacion))
+            echo $asignacion[0]->objetivo;
+        else
+            echo '<h4 class="text-center">No hay actividades programadas</h4>';
+        ?>
+    </h3>
 </div>
 <div class="col-md-12">
-
-    <div class="row">
+        <div class="row">
         <?php foreach ($asignacion as  $value) : ?>
             <div class="col-md-4">
                 <!-- Widget: user widget style 2 -->
@@ -79,18 +32,27 @@
                             <li class="nav-item"><a href="#" class="nav-link">
                                     Dia <span class="float-right badge bg-success"><span class="badge float-right"><?php echo ucwords($value->dia) ?></span></span>
                                 </a>
-                                
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     Horario <span class="float-right badge bg-info"><?php echo  $value->hora1 . ' a ' . $value->hora2 ?></span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Proceso <span class="float-right badge bg-info"><?php echo  $value->proceso ?></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Miembro <span class="float-right badge bg-info"><?php echo  $value->nombres.' '.$value->apellidos ?></span>
+                                </a>
+                            </li>
                         </ul>
                         <div class="card-footer">
                             <div class="float-right">
                                 <button type="button" class="btn btn-default" id="soporteVer" onclick="soporteVer('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="ver soportes"><i class="far fa-file"></i> </button>
-                                <button type="button" class="btn btn-default" id="compromisosVer" onclick="compromisosVer('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="Ver compromisos" ><i class="fas fa-calendar-plus"></i> </button>
+                                <button type="button" class="btn btn-default" id="compromisosVer" onclick="compromisosVer('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="Ver compromisos"><i class="fas fa-calendar-plus"></i> </button>
                             </div>
                             <button type="button" class="btn btn-default" id="soporte" onclick="soporte('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="registro de soportes"><i class="fas fa-paperclip"></i> </button>
                             <button type="button" class="btn btn-default" id="compromisos" onclick="compromisos('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="registro de compromisos"><i class="fas fa-clipboard"></i> </button>
