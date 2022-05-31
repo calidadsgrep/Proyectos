@@ -63,7 +63,7 @@
                             alert("Fallo al agregar");
                         } else {
                             alert("Agregado con éxito!!");
-                           // window.location.reload();
+                            window.location.reload();
                         }
                     }
                 });

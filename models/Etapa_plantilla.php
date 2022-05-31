@@ -4,6 +4,7 @@ class Etapa_plantilla
     private $pdo;
     public $id;
     public $etapa_id;
+    public $usuario_id;
     public $fecha1;
     public $fecha2;
     public $hora1;
@@ -28,11 +29,12 @@ class Etapa_plantilla
 
         try {
 
-            $stm = "INSERT INTO etapa_plantillas(etapa_id, proyecto_id, fecha,dia, hora1, hora2)
-                             VALUES(?, ?, ?, ?, ?, ?)";
+            $stm = "INSERT INTO etapa_plantillas(etapa_id, proyecto_id,usuario_id, fecha,dia, hora1, hora2)
+                             VALUES(?, ?, ?, ?, ?, ?, ?)";
             $this->pdo->prepare($stm)->execute(array(
                 $data->etapa_id,
                 $data->proyecto_id,
+                $data->usuario_id,
                 $data->fecha,
                 $data->dia,
                 $data->hora1,

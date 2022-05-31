@@ -51,4 +51,21 @@ class CompromisosController
             ? $this->model->Actualizar($compromiso) :
             $this->model->Registrar($compromiso);
     }
+
+
+
+    public function Eliminar(){
+        if ($_REQUEST['id']) {
+            
+            $this->model->Eliminar($_REQUEST['id']);
+            echo'<script>
+            alert("Eliminado con éxito!!");
+               window.history.back();
+               </script>';
+        } else {
+        }
+
+
+    }
+
 }

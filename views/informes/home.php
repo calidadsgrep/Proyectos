@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="col-12">
             <div class="row">
-                <div class="col-6">
+                <div class="col-2">
                     <div class="card">
                         <div class="card-header">CRM</div>
                         <div class="card-body">
@@ -13,7 +13,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-3">
                     <div class="card">
                         <div class="card-header">Proyectos</div>
                         <div class="card-body">
@@ -21,6 +21,46 @@
                                 <?php echo $value0->nombre ?>
                                 <spam class="badge badge-success float-right"><?php echo $value0->cantidad ?></spam><br>
                             <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-header">Actividades</div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Funcionarios</th>
+                                        <th>Actividades</th>
+                                        <th>Cumplidas</th>
+                                        <th>Avance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($funcionarios as $value1) : ?>
+
+                                        <tr>
+                                            <td><?php echo $value1->fullName ?></td>
+                                            <td><?php echo $value1->amount ?></td>
+                                            <?php foreach ($funci_cumplidas as $value3) :
+                                                if ($value3->user_id == $value1->user_id ) : ?>
+                                                    <td> <?php echo $value3->amount ?> </td>
+                                                    <td>
+                                                        <?php $porcentaje = ($value3->amount / $value1->amount) * 100; ?>
+                                                        <label><?php echo  number_format($porcentaje, 1) . '%' ?></label>
+                                                        <progress id="file" value="<?php echo $porcentaje ?>" max="100">% </progress>
+                                                    </td>                                                        
+                                            <?php endif;
+                                            endforeach; ?>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -49,11 +89,15 @@
                                                 echo $intvl->y . " Años, " . $intvl->m . " meses y " . $intvl->d . " dias";
                                                 echo "\n"; ?></li>
                                             <li><?php    // Total amount of days                                  
-                                                echo 'Total:  ' . $intvl->days . " dias ";
+                                                echo 'Total:  ' . $i = $intvl->days . " dias ";
                                                 ?></li>
                                         </ul>
                                     </li>
-
+                                    <?php
+                                    $fini_act = $cliente->Info_fechamin($value3->p_id);
+                                    $ffin_act = $cliente->Info_fechamax($value3->p_id);
+                                    // print_r($fini_act);
+                                    ?>
                                     <li>Duración Programada:
                                     <li><?php echo  $fini_act->finicio . ' Hasta ' . $ffin_act->ffin ?></li>
                                     <ul>
@@ -64,20 +108,20 @@
                                             echo $intvl->y . " Años, " . $intvl->m . " meses y " . $intvl->d . " dias";
                                             echo "\n"; ?></li>
                                         <li><?php    // Total amount of days                                  
-                                            echo 'Total:  ' . $intvl->days . " dias ";
-                                            ?></li>
+                                            echo 'Total:  ' . $f = $intvl->days . " dias ";
+                                            ?>
+                                        </li>
                                     </ul>
                                     </li>
                                 </ul>
                             </div>
                             <div class="card-header ">
                                 <span>Avance: </span>
-                                <div class="btn-group float-right " role="group" aria-label="Basic example">
+                                <div class="btn-group float-right" role="group" aria-label="Basic example">
                                     <button type="button" onclick="Etapa('<?php echo $value3->p_id; ?>')" data-toggle="modal" data-target="#modelId" class="btn btn-primary">Etapa</button>
                                     <button type="button" onclick="Obj('<?php echo $value3->p_id; ?>')" data-toggle="modal" data-target="#modelId" class="btn btn-primary">Objetivo</button>
                                     <button type="button" onclick="Act('<?php echo $value3->p_id; ?>')" data-toggle="modal" data-target="#modelId" class="btn btn-primary">Actividades</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -91,59 +135,60 @@
 <div class="modal fade  bd-example-modal-lg" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-                <div class="modal-header">
-                        <h5 class="modal-title"></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                    </div>
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
                 <div class="container-fluid" id="informe">
-                   
+
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>               
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function Etapa(val){
-    var p_id=val;
+    function Etapa(val) {
+        var p_id = val;
         $.ajax({
-        type: "POST",
-        url: '?c=informes&a=crud',
-        data: 'pid='+ p_id,
-        success: function(resp) {
-          $('#informe').html(resp);
-          $('#respuesta').html("");
-        }
-      });
-    }
-    function Obj(){
-        $.ajax({
-        type: "POST",
-        url: '?c=objetivos&a=crud&pid',
-        //data: 'pid=' + ,
-        success: function(resp) {
-          $('#info').html(resp);
-          $('#respuesta').html("");
-        }
-      });
-    }
-    function Act(){
-        $.ajax({
-        type: "POST",
-        url: '?c=objetivos&a=crud&pid',
-        //data: 'pid=' + ,
-        success: function(resp) {
-          $('#info').html(resp);
-          $('#respuesta').html("");
-        }
-      });
+            type: "POST",
+            url: '?c=informes&a=etapas',
+            data: 'pid=' + p_id,
+            success: function(resp) {
+                $('#informe').html(resp);
+                $('#respuesta').html("");
+            }
+        });
     }
 
+    function Obj(val) {
+        var p_id = val;
+        $.ajax({
+            type: "POST",
+            url: '?c=informes&a=objetivos',
+            data: 'pid=' + p_id,
+            success: function(resp) {
+                $('#informe').html(resp);
+                $('#respuesta').html("");
+            }
+        });
+    }
+
+    function Act() {
+        $.ajax({
+            type: "POST",
+            url: '?c=objetivos&a=crud&pid',
+            //data: 'pid=' + ,
+            success: function(resp) {
+                $('#info').html(resp);
+                $('#respuesta').html("");
+            }
+        });
+    }
 </script>
-

@@ -30,8 +30,9 @@
                                         <td><?php echo  $usuario->tipo ?></td>
                                         <td><?php echo  $usuario->estado ? 'Activo' : 'Inactivo'; ?></td>
                                         <td>
-                                            <a class="" onclick="Edit('<?php echo $usuario->id_user ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i> </a>
-                                            <a class="" onclick="Seguimiento('<?php echo $usuario->id_user ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-address-book"></i> </a>
+                                            <a class="" onclick="Edit('<?php echo $usuario->id_user ?>')" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
+                                            <a class="" onclick="Config('<?php echo $usuario->id_user ?>')" data-toggle="modal" data-target="#modal-default" title="Modificar los datos de ingreso y el tipo de usuario"><i class="fa fa-cog"></i></a>
+                                            
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -70,8 +71,6 @@
     </div>
     <!-- /.modal -->
 </div>
-
-
 <script>
     function Add() {
         $.ajax({
@@ -98,12 +97,12 @@
         });
     }
 
-    function Seguimiento(id) {
+    function Config(id) {
         $.ajax({
             type: "POST",
-            url: '?c=seguimientos&a=crud',
+            url: '?c=usuarios&a=config',
             data: {
-                clie_id: id
+                id: id
             },
             success: function(resp) {
                 $('#index').html(resp);

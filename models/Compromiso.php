@@ -64,4 +64,17 @@ class Compromiso
             die($e->getMessage());
         }
     }
+
+    public function Eliminar($id)
+    {
+
+        try {
+            $sql = "DELETE  FROM  compromisos WHERE id=$id ";
+            $this->pdo->prepare($sql)->execute();
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
 }

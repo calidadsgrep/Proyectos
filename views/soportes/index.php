@@ -9,33 +9,47 @@
             </div>
         </div>
         <div class="card-body p-0">
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Nombre Archivo</th>
                         <th>Enlace</th>
                         <th>Tamaño</th>
-                        <th></th>
+                        <th>menu</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($soportes as $value) : ?>
+                    <?php 
+                   // print_r($soportes);
+                    foreach ($soportes as $value) : ?>
                         <tr>
-                            <td><?php
+                            <td>
+                                <?php
                                 $filepath = $value->ruta_soporte;
                                 $filename = preg_replace('/^.+[\\\\\\/]/', '', $filepath);  // filename.jpg
                                 echo $filename ?></td>
+                            </td>
+
                             <td>
-                            <td><?php $value->enlace; ?>
-                               </td>
+                                <a href="<?php echo  $value->enlace; ?>" target="_blank"><i class="fa fa-paperclip"></i></a>
+                            </td>
+
                             <td>
-                                <?php echo filesize($filepath) . ' kb'; ?>
+
+                                <?php 
+                                if(empty($value->enlace)):
+                                    echo filesize($filepath) . ' kb';
+                                else:
+                                    echo "0";
+                                endif;
+                                
+                                 ?>
                             </td>
                             <td class="text-right py-0 align-middle">
-                                <div class="btn-group btn-group-sm">
-                                    <a href="<?php echo $value->ruta_soporte ?>" class="btn btn-info" target="_blank"><i class="fas fa-eye"></i></a>
-                                    <a href="?c=soportes&a=eliminar&id=<?php echo $value->id ?>&path=<?php echo $value->ruta_soporte ?>" onclick="return confirm('Estás seguro que deseas eliminar el soporte?');" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                </div>
+                                
+                                    <a href="<?php echo $value->ruta_soporte ?>" class="" target="_blank"><i class="fas fa-eye"></i></a>
+                                    <a href="?c=soportes&a=eliminar&id=<?php echo $value->id ?>&path=<?php echo $value->ruta_soporte ?>" onclick="return confirm('Estás seguro que deseas eliminar el soporte?');" class=""><i class="fas fa-trash"></i></a>
+                               
                             </td>
                         </tr>
                     <?php endforeach; ?>

@@ -38,7 +38,7 @@ class Soporte
         try {
 
             $stm = "INSERT INTO horario_soportes(horario_id, ruta_soporte, fecha_reg,enlace)
-                             VALUES(?, ?, ?)";
+                             VALUES(?, ?, ?, ?)";
             $this->pdo->prepare($stm)->execute(array(
                 $data->horario_id,
                 $data->ruta_soporte,

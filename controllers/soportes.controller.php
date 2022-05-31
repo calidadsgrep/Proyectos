@@ -54,10 +54,14 @@ class SoportesController
         date_default_timezone_set('America/Bogota');
         @$soporte->id = $_REQUEST['id'];
         $soporte->horario_id = $_REQUEST['horario_id'];
-        $soporte->ruta_soporte = $dest_path;
         $soporte->fecha_reg = date('Y-m-d h:i:s a', time());
-        $soporte->enlace = date('Y-m-d h:i:s a', time());
-        $soporte->id > 0
+        $soporte->enlace = $_REQUEST['enlace'] ;
+        if(!empty($dest_path)){
+                $soporte->ruta_soporte = $dest_path;
+        }else{
+            $soporte->ruta_soporte = $_REQUEST['enlace'];
+        }
+            $soporte->id > 0
             ? $this->model->Actualizar($soporte)
             : $this->model->Registrar($soporte);
 

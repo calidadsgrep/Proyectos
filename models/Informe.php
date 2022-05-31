@@ -63,41 +63,38 @@ class Informe
 
             while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
 
-                $Data[] = $row;               
-               
+                $Data[] = $row;
             }
 
-           // echo json_encode($Data);
+            // echo json_encode($Data);
 
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
 
-    public function Info_fechamin()
+    public function Info_fechamin($id)
     {
         try {
             $stm = $this->pdo->prepare("SELECT  MIN(fecha) as finicio 
                                         FROM   horarios
                                           WHERE
-                                               horarios.proyecto_id=1");
+                                               horarios.proyecto_id=$id");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
-
         } catch (Exception $e) {
             die($e->getMessage());
         }
     }
-    public function Info_fechamax()
+    public function Info_fechamax($id)
     {
         try {
             $stm = $this->pdo->prepare("SELECT  MAX(fecha) as ffin 
                                         FROM   horarios
                                           WHERE
-                                               horarios.proyecto_id=1");
+                                               horarios.proyecto_id=$id");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
-
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -115,7 +112,102 @@ class Informe
             die($e->getMessage());
         }
     }
+    
+    public function Etapas($id)
+    { //todas las act
+        try {
+            $stm = $this->pdo->prepare("SELECT COUNT(actividad_id) As total_Act, etapas.notacion, horarios.etapa_plantilla_id,horarios.proyecto_id 
+                                        FROM horarios, etapas 
+                                        WHERE proyecto_id=$id  
+                                        AND etapas.id=horarios.etapa_plantilla_id  
+                                        
+                                        GROUP BY etapa_plantilla_id");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function Etapas0($id)
+    { //todas las act
+        try {
+            $stm = $this->pdo->prepare("SELECT COUNT(actividad_id) As total_Act, etapas.notacion, horarios.etapa_plantilla_id,horarios.proyecto_id 
+                                        FROM horarios, etapas  
+                                        WHERE proyecto_id=$id  
+                                        AND etapas.id=horarios.etapa_plantilla_id  
+                                        AND horarios.estado!=0 
+                                        GROUP BY etapa_plantilla_id");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    public function Objetivo($id)
+    { //todas las act
+        try {
+            $stm = $this->pdo->prepare("SELECT COUNT(horarios.id) As actividades , objetivos.objetivo, objetivos.id as obj_id
+                                        FROM actividades
+                                          LEFT JOIN horarios ON actividades.id=horarios.actividad_id
+                                          LEFT JOIN objetivos ON actividades.objetivo_id =objetivos.id
+                                        WHERE horarios.proyecto_id=$id
+                                        
+                                        group by actividades.objetivo_id
+                                        ");            
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
+    public function Objetivo0($id)
+    { //todas las act
+        try {
+            $stm = $this->pdo->prepare("SELECT COUNT(horarios.id) As actividades , objetivos.objetivo, objetivos.id as obj_id
+                                        FROM actividades
+                                          LEFT JOIN horarios ON actividades.id=horarios.actividad_id
+                                          LEFT JOIN objetivos ON actividades.objetivo_id =objetivos.id
+                                        WHERE horarios.proyecto_id=$id
+                                        AND
+                                        horarios.estado = 1
+                                        group by actividades.objetivo_id
+                                        ");            
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
+    public function Funcionarios(){
+        
+        try {
+            $stm = $this->pdo->prepare("SELECT COUNT(horarios.id) As amount, TIMEDIFF(horarios.hora1, horarios.hora2) as horas, CONCAT(usuarios.nombres,' ',usuarios.apellidos) as fullName , usuarios.id as user_id
+                                        FROM horarios
+                                          LEFT JOIN usuarios ON usuarios.id=horarios.usuario_id                                          
+                                        group by horarios.usuario_id");            
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+
+    }
+    public function Func_cumplidas(){
+        
+        try {
+            $stm = $this->pdo->prepare("SELECT COUNT(horarios.id) As amount, TIMEDIFF(horarios.hora1, horarios.hora2) as horas, usuarios.id as user_id
+                                        FROM horarios
+                                          LEFT JOIN usuarios ON usuarios.id=horarios.usuario_id  
+                                          where horarios.estado = 1                                        
+                                        group by horarios.usuario_id");            
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+
+    }
 
 }

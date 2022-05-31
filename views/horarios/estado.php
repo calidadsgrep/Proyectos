@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        Estado de la Actividad <small><br><span><?php echo $horarios->actividad ?></span></small>
+        Estado de la Actividad <small><br><span><?php /*print_r($horarios);*/ echo $horarios->actividad ?></span></small>
     </div>
     <div class="card-body">
         <div class="col-md-12">

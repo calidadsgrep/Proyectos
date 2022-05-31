@@ -50,12 +50,20 @@ class HorariosController
 
   public function Estado()
   {
-
-
     $horarios = $this->model->Ver($_REQUEST['hid']);
-    require_once 'views/horarios/estado.php';
-    //print_r($horarios);     
+   // print_r($horarios);  
+    require_once 'views/horarios/estado.php';       
   }
+
+  public function Editar()
+  {
+    $horarios = $this->model->Ver($_REQUEST['hid']);
+   // print_r($horarios);  
+    require_once 'views/horarios/editar.php';       
+  }
+
+
+
   public function Actualizar()
   {
 
@@ -64,4 +72,33 @@ class HorariosController
     $horario->id = $_REQUEST['id'];
     $this->model->Actualizar($horario);
   }
+
+  public function Edit0()
+  {
+
+    $horario = new Horario();
+    $horario->id = $_REQUEST['id'];
+    $horario->fecha = $_REQUEST['fecha'];
+    $horario->dia = $_REQUEST['dia'];
+    $horario->hora1 = $_REQUEST['hora1'];
+    $horario->hora2 = $_REQUEST['hora2'];
+    $horario->estado = $_REQUEST['estado'];
+    
+    $this->model->Edit0($horario);
+  }
+
+  public function Borrar(){
+
+    if ($_REQUEST['id']) {
+      // file was successfully deleted
+      $this->model->Borrar($_REQUEST['id']);
+      echo'<script>
+      alert("Eliminado con éxito!!");
+         window.history.back();
+         </script>';
+  } else {
+  }
+
+  }
+
 }

@@ -31,11 +31,12 @@ class ProyectosController
 	}
 
 	public function Etapa_index()
-	{   $plantillas = new Proyecto();
+	{
+		$plantillas = new Proyecto();
 		$proyectos = $this->model->Listar();
-		
+
 		$etapa = new Etapa();
-		
+
 		$plantillas = $this->model->Obtener($_REQUEST['pid']);
 		$etapas = $etapa->Listar($plantillas->plantilla_id);
 		$etapasActs = $etapa->Etapa_act($plantillas->plantilla_id);
@@ -60,7 +61,8 @@ class ProyectosController
 	}
 
 
-	public function Registrar0(){	
+	public function Registrar0()
+	{
 
 		$proyectos = new Proyecto();
 		$proyectos->id = $_REQUEST['id'];
@@ -68,12 +70,12 @@ class ProyectosController
 		$proyectos->fecha_inicio = $_REQUEST['fecha_inicio'];
 		$proyectos->fecha_cierre = $_REQUEST['fecha_cierre'];
 		$proyectos->cliente_id = $_REQUEST['cliente_id'];
-	    $proyectos->plantilla_id = $_REQUEST['plantilla_id'];
-	    
-		$proyectos->id > 0 
-		   ? $proyec =$proyectos->Actualizar($proyectos)
-		   : $proyec =$proyectos->Registrar0($proyectos); 
-     }
+		$proyectos->plantilla_id = $_REQUEST['plantilla_id'];
+
+		$proyectos->id > 0
+			? $proyec = $proyectos->Actualizar($proyectos)
+			: $proyec = $proyectos->Registrar0($proyectos);
+	}
 
 
 
@@ -83,6 +85,7 @@ class ProyectosController
 
 		$proyecto->id = $_REQUEST['id'];
 		$proyecto->etapa_id     = $_REQUEST['etapa_id'];
+		$proyecto->usuario_id     = $_REQUEST['usuario_id'];
 		$proyecto->fecha1 = $_REQUEST['fecha_inicio'];
 		$proyecto->fecha2 = $_REQUEST['fecha_cierre'];
 		$proyecto->dias = @$_REQUEST['dia1'] . '-' . @$_REQUEST['dia2'] . '-' . @$_REQUEST['dia3'] . '-' . @$_REQUEST['dia4'] . '-' . @$_REQUEST['dia5'] . '-' . @$_REQUEST['dia6'];
@@ -113,6 +116,7 @@ class ProyectosController
 				$proyecto->hora2 = $proyecto->hora2;
 				$proyecto->etapa_id = $_REQUEST['etapa_id'];
 				$proyecto->proyecto_id = $_REQUEST['proyecto_id'];
+				$proyecto->usuario_id     = $_REQUEST['usuario_id'];
 				$registrar = $proyecto->Registrar($proyecto);
 			}
 			if ($dia == 2 && $m != "") {
@@ -123,6 +127,7 @@ class ProyectosController
 				$proyecto->hora2 = $proyecto->hora2;
 				$proyecto->etapa_id = $_REQUEST['etapa_id'];
 				$proyecto->proyecto_id = $_REQUEST['proyecto_id'];
+				$proyecto->usuario_id     = $_REQUEST['usuario_id'];
 				$registrar = $proyecto->Registrar($proyecto);
 				// echo "Martes" . date("Y-m-d", $i) .$proyecto->hora1.' '. $proyecto->hora2 . "<br>";
 			}
@@ -133,6 +138,7 @@ class ProyectosController
 				$proyecto->hora2 = $proyecto->hora2;
 				$proyecto->etapa_id = $_REQUEST['etapa_id'];
 				$proyecto->proyecto_id = $_REQUEST['proyecto_id'];
+				$proyecto->usuario_id     = $_REQUEST['usuario_id'];
 				$registrar = $proyecto->Registrar($proyecto);
 				//echo "Miercoles" . date("Y-m-d", $i) .$proyecto->hora1.' '. $proyecto->hora2 . "<br>";
 			}
@@ -143,6 +149,7 @@ class ProyectosController
 				$proyecto->hora2 = $proyecto->hora2;
 				$proyecto->etapa_id = $_REQUEST['etapa_id'];
 				$proyecto->proyecto_id = $_REQUEST['proyecto_id'];
+				$proyecto->usuario_id     = $_REQUEST['usuario_id'];
 				$registrar = $proyecto->Registrar($proyecto);
 				// echo "jueves" . date("Y-m-d", $i) .$proyecto->hora1.' '. $proyecto->hora2 . "<br>";
 			}
@@ -153,6 +160,7 @@ class ProyectosController
 				$proyecto->hora2 = $proyecto->hora2;
 				$proyecto->etapa_id = $_REQUEST['etapa_id'];
 				$proyecto->proyecto_id = $_REQUEST['proyecto_id'];
+				$proyecto->usuario_id     = $_REQUEST['usuario_id'];
 				$registrar = $proyecto->Registrar($proyecto);
 				// echo "Viernes" . date("Y-m-d", $i) .$proyecto->hora1.' '. $proyecto->hora2 . "<br>";
 			}
@@ -163,6 +171,7 @@ class ProyectosController
 				$proyecto->hora2 = $proyecto->hora2;
 				$proyecto->etapa_id = $_REQUEST['etapa_id'];
 				$proyecto->proyecto_id = $_REQUEST['proyecto_id'];
+				$proyecto->usuario_id     = $_REQUEST['usuario_id'];
 				$registrar = $proyecto->Registrar($proyecto);
 				// echo "Sabado" . date("Y-m-d", $i) .$proyecto->hora1.' '. $proyecto->hora2 . "<br>";
 			}
@@ -179,7 +188,7 @@ class ProyectosController
 		$objetivo = new Objetivo();
 		$actividades = new Actividad();
 		$proyecto = $this->model->Obtener($_REQUEST['pid']);
-	   
+
 		$etapas = $etapa->Listar($proyecto->plantilla_id);
 		$objetivos = $objetivo->Obj_pro($proyecto->plantilla_id);
 		$objindex = $objetivo->Obj_index($proyecto->plantilla_id);
@@ -204,8 +213,8 @@ class ProyectosController
 	//-----------etapas info gestion--------//
 	public function Etapa_add()
 	{
-		/* $etapa = new Etapa();
-    $etapas = $etapa->Obtener($_REQUEST['pid']);*/
+		$usuario = new Usuario();
+		$usuarios = $usuario->Funcionarios();
 		require_once 'views/proyectos/etapa_add.php';
 	}
 	//-----------etapas info gestion--------//
@@ -218,6 +227,9 @@ class ProyectosController
 		$act_pro = $actividades->Act_Pro_eta($_REQUEST['val02']);
 		$horario = new Etapa_plantilla();
 		$horarios = $horario->Listar($_REQUEST['val01'], $_REQUEST['val02']);
+
+		$usuario = new Usuario();
+		$usuarios = $usuario->Funcionarios();
 		require_once 'views/proyectos/ver.php';
 	}
 	public function Ver_gestion()
@@ -239,6 +251,7 @@ class ProyectosController
 		$horario = new Horario();
 		$fecha =	 $_REQUEST['fecha'];
 		$dia =	$_REQUEST['dia'];
+		 $usuario_id =	$_REQUEST['usuario_id'];
 		$hora1 =	$_REQUEST['hora1'];
 		$hora2 =	$_REQUEST['hora2'];
 		$actividad =	$_REQUEST['actividad_id'];
@@ -250,6 +263,7 @@ class ProyectosController
 			foreach ($check as $key => $value) :
 				$horario->fecha = $fecha[$value];
 				$horario->dia = $dia[$value];
+				$horario->usuario_id = $usuario_id[$value];
 				$horario->actividad_id = $actividad[$value];
 				$horario->hora1 = $hora1[$value];
 				$horario->hora2 = $hora2[$value];

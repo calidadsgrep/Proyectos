@@ -86,6 +86,16 @@
 							<small>De 8am a 6pm</small>
 						</div>
 					</div>
+					<div class="col-4">
+						<div class="form-group">
+							<label for="nombre">Responsable</label>
+							<select name="usuario_id" id="usuario_id" class="form-control">
+								<?php foreach($usuarios as $value): ?>
+									<option  value="<?php echo $value->user_id ?>"><?php echo $value->fullName  ?></option>
+									<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
 				</div>
 				<input type="hidden" name="id" value=''>
 				<input type="hidden" id="etapa_id" name="etapa_id" value="<?php echo $_REQUEST['eid'] ?>">

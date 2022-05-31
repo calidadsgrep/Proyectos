@@ -2,6 +2,7 @@
     <h3 class="text-center">
 
         <?php
+        // print_r($asignacion);
         if (!empty($asignacion))
             echo $asignacion[0]->objetivo;
         else
@@ -45,40 +46,42 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    Miembro <span class="float-right badge bg-info"><?php echo  $value->nombres.' '.$value->apellidos ?></span>
+                                    Responsable <span class="float-right badge bg-info"><?php echo  $value->nombres.' '.$value->apellidos ?></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Funcionario <span class="float-right badge bg-info"><?php echo  $value->funcionario ?></span>
                                 </a>
                             </li>
                         </ul>
                         <div class="card-footer">
                             <div class="float-right">
-                                <button type="button" class="btn btn-default" id="soporteVer" onclick="soporteVer('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="ver soportes"><i class="far fa-file"></i> </button>
-                                <button type="button" class="btn btn-default" id="compromisosVer" onclick="compromisosVer('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="Ver compromisos"><i class="fas fa-calendar-plus"></i> </button>
+                                <button type="button" class="btn btn-default" id="soporteVer" onclick="soporteVer('<?php echo $value->hor_id ?>')" data-toggle="modal" data-target="#modelId" title="ver soportes"><i class="far fa-file"></i> </button>
+                                <button type="button" class="btn btn-default" id="compromisosVer" onclick="compromisosVer('<?php echo $value->hor_id ?>')" data-toggle="modal" data-target="#modelId" title="Ver compromisos"><i class="fas fa-calendar-plus"></i> </button>
                             </div>
-                            <button type="button" class="btn btn-default" id="soporte" onclick="soporte('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="registro de soportes"><i class="fas fa-paperclip"></i> </button>
-                            <button type="button" class="btn btn-default" id="compromisos" onclick="compromisos('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="registro de compromisos"><i class="fas fa-clipboard"></i> </button>
-                            <button type="button" class="btn btn-default" id="estados" onclick="Estado('<?php echo $value->id ?>')" data-toggle="modal" data-target="#modelId" title="cambio de estado"><i class="far fa-clock"></i> </button>
+                            <button type="button" class="btn btn-default" id="soporte" onclick="soporte('<?php echo $value->hor_id ?>')" data-toggle="modal" data-target="#modelId" title="registro de soportes"><i class="fas fa-paperclip"></i> </button>
+                            <button type="button" class="btn btn-default" id="compromisos" onclick="compromisos('<?php echo $value->hor_id ?>')" data-toggle="modal" data-target="#modelId" title="registro de compromisos"><i class="fas fa-clipboard"></i> </button>
+                            <button type="button" class="btn btn-default" id="estados" onclick="Estado('<?php echo $value->hor_id ?>')" data-toggle="modal" data-target="#modelId" title="cambio de estado"><i class="far fa-clock"></i> </button>
+                            <button type="button" class="btn btn-default" id="estados" onclick="Editar('<?php echo $value->hor_id ?>')" data-toggle="modal" data-target="#modelId" title="Actualizar
+                            "><i class="far fa-edit"></i> </button>
+                            <a href="?c=horarios&a=borrar&id=<?php echo $value->id ?>&id=<?php echo $value->hor_id ?>" onclick="return confirm('Estás seguro que deseas eliminar la actividad, esta accion no es reversible?');" class="btn btn-default"><i class="fas fa-trash"></i></a>
+                               
+                     
                         </div>
                     </div>
                 </div>
                 <!-- /.widget-user -->
-
             </div><?php endforeach; ?>
     </div>
     <!-- /.col -->
-
-
-
-
-
-
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">:AGREGAR:</h5>
+                <h5 class="modal-title"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -134,6 +137,29 @@
     function Estado(val) {
         var hid = val
         $("#info_modal").load("?c=horarios&a=estado&hid=" + hid, function(responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success")
+                //alert("External content loaded successfully!");
+                if (statusTxt == "error")
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+
+    }
+
+
+    function Editar(val) {
+        var hid = val
+        $("#info_modal").load("?c=horarios&a=editar&hid=" + hid, function(responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success")
+                //alert("External content loaded successfully!");
+                if (statusTxt == "error")
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+
+    }
+
+    function Borrar(val) {
+        var hid = val
+        $("#info_modal").load("?c=horarios&a=borrar&hid=" + hid, function(responseTxt, statusTxt, xhr) {
             if (statusTxt == "success")
                 //alert("External content loaded successfully!");
                 if (statusTxt == "error")

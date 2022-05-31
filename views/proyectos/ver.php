@@ -11,32 +11,43 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>objetivo</th>
-                                <th>actividad</th>
-                                <th>horario</th>
-                                <th>check</th>
+                                <th>Objetivo</th>
+                                <th>Actividad</th>
+                                <th>Check</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $key = 1;
-                            /*  echo'<pre>';
-                        print_r($act_pro);
-                        echo'</pre>';*/
+                            /* echo '<pre>';
+                            print_r($horarios);
+                            echo '</pre>';*/
                             foreach ($act_pro as  $value) : ?>
                                 <tr>
                                     <?php if ($value->et_id == $_REQUEST['val02']) : ?>
                                         <td WIDTH="15%"><?php
                                                         echo $value->obj ?></td>
-                                        <td WIDTH="40%">
-                                            <?php echo $value->act ?></td>
+                                        <td WIDTH="20%">
+                                            <?php echo $value->act ?>
+                                        </td>                                        
                                         <td>
                                             <?php $key2 = 1;
                                             foreach ($horarios as $hora) : ?>
-
+                                                <?php //echo '<pre>';print_r($usuarios);echo '</pre>';
+                                                if ($key2 == $key) : ?>
+                                                    <?php echo '<div class="row">'; ?>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label>Responsable</label>
+                                                            <select name="usuario_id[<?php echo $value->act_id ?>]" id="usuario_id" class="form-control">
+                                                                <?php foreach ($usuarios as $val) : ?>
+                                                                    <option value="<?php echo $val->user_id ?>" <?php echo $val->user_id == $hora->usuario_id ? "selected" : ""; ?>>
+                                                                        <?php echo $val->fullName ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 <?php
-                                                if ($key2 == $key) :
-
-                                                    echo '<div class="row">';
                                                     echo '<div class="col-6">';
                                                     echo '<label>Fecha</label>';
                                                     echo '<input name="fecha[' . $value->act_id . ']" id="fecha" class="form-control" value="'  . $hora->fecha .  '">';
@@ -68,7 +79,6 @@
                                             <div class="col-12  text-center">
                                                 <input type="checkbox" class="form-check-input" name="check['<?php echo $value->act_id ?>']" id="check" value="<?php echo $value->act_id ?>" checked>
                                             </div>
-
                                         </td>
                                     <?php //endif;
                                     echo '</tr>';
@@ -89,7 +99,6 @@
             url: "?c=proyectos&a=horario",
             data: data,
             type: "post",
-
             success: function(data) {
                 Swal.fire({
                         // position: 'top-end',
@@ -99,7 +108,7 @@
                         timer: 1500
                     },
                     setTimeout(function() {
-                       // window.location.reload(1);
+                        window.location.reload(1);
                     }, 1500)
                 )
             }
