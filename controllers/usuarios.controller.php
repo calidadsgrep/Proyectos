@@ -30,9 +30,8 @@ class UsuariosController
         $horario = $cliente->Info_crono();
         $funcionarios = $cliente->Funcionarios();
         $funci_cumplidas = $cliente->Func_cumplidas();
-        /*print_r($funcionarios);
-        print_r($funci_cumplidas);*/
-
+        $compromisos = $cliente->Compromisos();
+        
         require_once 'views/layouts/header.php';
         require_once 'views/informes/home.php';
         require_once 'views/layouts/footer.php';
@@ -51,7 +50,7 @@ class UsuariosController
             header('Location: ../Proyectos');
         endif;
     }
-    
+
     public function Login()
     {
 
@@ -160,7 +159,6 @@ class UsuariosController
         $usuario->modified = date('Y-m-d');
 
         $this->model->UpdateConfig($usuario);
-       
     }
 
     public function Borrar()

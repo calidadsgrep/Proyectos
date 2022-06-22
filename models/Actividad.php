@@ -6,8 +6,6 @@ class Actividad
 	public $objetivo_id;
 	public $actividad;
 
-
-
 	public function __CONSTRUCT()
 	{
 		try {

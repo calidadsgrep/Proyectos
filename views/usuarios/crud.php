@@ -4,13 +4,13 @@
         <br>
         <div class="col-12">
             <!-- Default box -->
-            <form action="" method="post" id="formulario">
+            <form action="" method="post" id="formulario1" name="formulario1" class="formulario1">
                 <div class="row">
                     <div class="col-4">
                         <div class="formulario__grupo">
                             <label class="formulario__label" for="tipo">Tipo usuario</label>
                             <div class="formulario__grupo-input">
-                                <select name="tipo" id="tipo" class="formulario__input">
+                                <select name="tipo_usuario" id="tipo_usuario" class="formulario__input">
                                     <option value="">Seleccionar</option>
                                     <?php foreach ($tipoUsuarios as $tipoUsuario) : ?>
                                         <option <?php echo $usuario->tipo_usuario == $tipoUsuario->id ? 'selected' : ''  ?> value="<?php echo $tipoUsuario->id ?>"><?php echo ucwords($tipoUsuario->tipo) ?></option>
@@ -123,7 +123,7 @@
 
 <script>
     $(document).on('click', '#guardar', function(e) {
-        var data = $("#formulario").serialize();
+        var data = $("#formulario1").serialize();
         $("#index").modal('hide'); //ocultamos el modal
         $.ajax({
             data: data,
@@ -140,7 +140,7 @@
                         timer: 1500
                     },
                     setTimeout(function() {
-                        window.location.reload(1);
+                      //  window.location.reload(1);
                     }, 1500)
                 )
             }

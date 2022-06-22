@@ -55,8 +55,7 @@ class CompromisosController
 
 
     public function Eliminar(){
-        if ($_REQUEST['id']) {
-            
+        if ($_REQUEST['id']) {            
             $this->model->Eliminar($_REQUEST['id']);
             echo'<script>
             alert("Eliminado con éxito!!");

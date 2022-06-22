@@ -3,6 +3,7 @@
         <table class="table">
             <thead class="thead-light">
                 <tr>
+                    <th>Etapa</th>
                     <th>Objetivo</th>
                     <th>Resumen</th>
                     <th>Avance</th>
@@ -13,6 +14,7 @@
                     <?php foreach ($objetivos0 as $value0) : ?>
                         <?php if ($value->obj_id == $value0->obj_id) : ?>
                             <tr>
+                            <td scope="row"><?php echo $value->notacion ?></td>
                                 <td scope="row"><?php echo $value->objetivo ?></td>
                                 <td><?php echo $value0->actividades ?> de <?php echo $value->actividades ?></td>
                                 <td><?php $porcentaje = ($value0->actividades / $value->actividades) * 100;

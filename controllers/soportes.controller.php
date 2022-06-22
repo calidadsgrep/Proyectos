@@ -79,11 +79,19 @@ class SoportesController
 
     public function Eliminar()
     {
-        if (unlink($_REQUEST['path'])) {
-            // file was successfully deleted
+       /* if (isset(unlink($_REQUEST['path']))) {
+            // file was successfully deleted*/
             $soportes = $this->model->Eliminar($_REQUEST['id']);
-        } else {
-        }
+      /*  } else {
+            $soportes = $this->model->Eliminar($_REQUEST['id']);
+        }*/
+        echo "
+        <script>
+          window.history.back();
+        </script>
+        ";
+
+
     }
 
     public function Contrato()
@@ -123,7 +131,6 @@ class SoportesController
                 $message = 'Hubo algún error al mover el archivo al directorio de carga. Asegúrese de que el servidor web pueda escribir en el directorio de carga.';
             }
         }
-         
-
+    
     }
 }

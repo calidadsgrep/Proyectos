@@ -44,6 +44,21 @@ class Cliente
             die($e->getMessage());
         }
     }
+    public function Listar0()
+    {
+
+        try {
+            $result = array();
+            $stm = $this->pdo->prepare("SELECT clientes.nombre , clientes.id as cli_id  
+                                              FROM proyectos
+                                              INNER JOIN  clientes ON proyectos.cliente_id= clientes.id
+                                            ");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
     public function Prospectos()
     {

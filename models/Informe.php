@@ -112,7 +112,7 @@ class Informe
             die($e->getMessage());
         }
     }
-    
+
     public function Etapas($id)
     { //todas las act
         try {
@@ -146,14 +146,15 @@ class Informe
     public function Objetivo($id)
     { //todas las act
         try {
-            $stm = $this->pdo->prepare("SELECT COUNT(horarios.id) As actividades , objetivos.objetivo, objetivos.id as obj_id
+            $stm = $this->pdo->prepare("SELECT COUNT(horarios.id) As actividades , objetivos.objetivo, objetivos.id as obj_id, etapas.notacion
                                         FROM actividades
                                           LEFT JOIN horarios ON actividades.id=horarios.actividad_id
                                           LEFT JOIN objetivos ON actividades.objetivo_id =objetivos.id
+                                          INNER JOIN etapas on objetivos.etapa_id=etapas.id
                                         WHERE horarios.proyecto_id=$id
                                         
                                         group by actividades.objetivo_id
-                                        ");            
+                                        ");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
@@ -172,7 +173,7 @@ class Informe
                                         AND
                                         horarios.estado = 1
                                         group by actividades.objetivo_id
-                                        ");            
+                                        ");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
@@ -180,34 +181,71 @@ class Informe
         }
     }
 
-    public function Funcionarios(){
-        
+    public function Funcionarios()
+    {
+
         try {
             $stm = $this->pdo->prepare("SELECT COUNT(horarios.id) As amount, TIMEDIFF(horarios.hora1, horarios.hora2) as horas, CONCAT(usuarios.nombres,' ',usuarios.apellidos) as fullName , usuarios.id as user_id
                                         FROM horarios
                                           LEFT JOIN usuarios ON usuarios.id=horarios.usuario_id                                          
-                                        group by horarios.usuario_id");            
+                                        group by horarios.usuario_id");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
             die($e->getMessage());
         }
-
     }
-    public function Func_cumplidas(){
-        
+    public function Func_cumplidas()
+    {
+
         try {
             $stm = $this->pdo->prepare("SELECT COUNT(horarios.id) As amount, TIMEDIFF(horarios.hora1, horarios.hora2) as horas, usuarios.id as user_id
                                         FROM horarios
                                           LEFT JOIN usuarios ON usuarios.id=horarios.usuario_id  
                                           where horarios.estado = 1                                        
-                                        group by horarios.usuario_id");            
+                                        group by horarios.usuario_id");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
             die($e->getMessage());
         }
-
     }
 
+
+    public function Compromisos()
+    {
+        try {
+            $stm = $this->pdo->prepare("SELECT COUNT(compromisos.id) AS cantidad,  actividades.actividad, horarios.fecha, compromisos.descripcion,compromisos.fecha as comp_fecha,proyectos.nombre as pro, clientes.nombre 
+                                        FROM actividades
+                                         INNER JOIN horarios ON actividades.id=horarios.actividad_id
+                                         INNER JOIN compromisos ON horarios.id=compromisos.horario_id
+                                         INNER JOIN proyectos ON proyectos.id=horarios.proyecto_id
+                                         INNER JOIN clientes ON  proyectos.cliente_id = clientes.id 
+                                         GROUP BY horarios.actividad_id");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function Reporte($pid)
+    {
+ $hoy=date('Y-m-d');
+        try {
+            $stm = $this->pdo->prepare("SELECT  CONCAT( usuarios.nombres,' ',usuarios.apellidos) AS fullName,   actividades.actividad,etapas.notacion, horarios.fecha,horarios.estado, proyectos.nombre as pro, clientes.nombre 
+            FROM actividades
+             INNER JOIN horarios ON actividades.id=horarios.actividad_id  
+             INNER JOIN usuarios ON  horarios.usuario_id = usuarios.id            
+             INNER JOIN proyectos ON proyectos.id=horarios.proyecto_id
+             INNER JOIN etapas ON etapas.id= horarios.etapa_plantilla_id
+             INNER JOIN clientes ON  proyectos.cliente_id = clientes.id             
+                WHERE horarios.proyecto_id=$pid AND horarios.estado=0 AND horarios.fecha <='$hoy'
+             GROUP BY horarios.actividad_id");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 }

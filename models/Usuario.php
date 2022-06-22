@@ -101,9 +101,6 @@ class Usuario
 
  }
 
-
-
-
 	public function Actualizar(Usuario $data)
 	{
 

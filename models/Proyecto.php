@@ -46,6 +46,18 @@ class Proyecto
 		}
 
 	}
+	public function Obtener0($id){
+
+		try {
+			$result = array();
+            $stm = $this->pdo->prepare("SELECT * FROM proyectos WHERE cliente_id = $id ");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+
+	}
 
 	public function Registrar0(Proyecto $data){
  //print_r($data);
