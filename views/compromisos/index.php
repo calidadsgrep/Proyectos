@@ -15,6 +15,7 @@
                         <th>Compromiso</th>
                         <th>Ejecutar</th>
                         <th>Estado</th>
+                        <th>Verficación</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -29,6 +30,9 @@
                             <td>
                                 <?php echo  $value->estado==0 ? 'Aun no cumple' : 'Cumple' ;
                                 ?>
+                            </td>
+                            <td>
+                                <?php echo $value->fverificacion ?>
                             </td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">

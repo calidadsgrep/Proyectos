@@ -23,6 +23,7 @@ class ClientesController
             $clientes = $this->model->Prospectos();
         else:
             $clientes = $this->model->Listar();
+            $soportes = $this->model->ListarSoportes();
         endif;
         
         require_once 'views/clientes/index.php';
@@ -82,5 +83,27 @@ class ClientesController
        
    
        }
-    
+
+
+       public function Soporte(){
+        $soporte = new Cliente();
+        if(isset($_REQUEST['id'])){
+            $soporte = $this->model->Soporte($_REQUEST['id']);
+        };
+          require_once 'views/clientes/soportes.php';
+       }
+
+       public function SoporteCrud(){
+        $soporte = new Cliente();        
+        $soporte->link = $_REQUEST['link'];
+        $soporte->cliente_id = $_REQUEST['cliente_id'];
+            
+        $_REQUEST['link'] > 0 ?
+         $this->model->SoporteEdit($soporte):
+         $this->model->SoporteAdd($soporte);
+
+
+
+
+       }
 }

@@ -5,7 +5,7 @@
             <form name="form_compro" id="form_compro" method="post">
                 <div class="row">
                     <input type="hidden" name="id" id="id" class="form-control" value='<?php echo $compromiso->id ?>' required>
-                   <div class="col-8">
+                    <div class="col-8">
                         <div class="form-group">
                             <label for="">Descripción Compromiso</label>
                             <textarea name="descripcion" id="descripcion" class="form-control" required> <?php echo $compromiso->descripcion ?> </textarea>
@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="">Fecha Ejecucion</label>
+                            <label for="">Fecha Ejecución</label>
                             <input type="date" name="fecha" id="fecha" class="form-control" value="<?php echo date('Y-m-d') ?>" required>
                         </div>
                     </div>
@@ -22,18 +22,24 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="">Estado</label>
-                                <select name="estado" id="estado" class="form-control" required >                                    
-                                    <option value="0" <?php $compromiso->estado=0 ? 'selected' : '' ?> >Aun no cumple</option>
-                                    <option value="1" <?php $compromiso->estado=1 ? 'selected' : '' ?>>Cumple</option>
+                                <select name="estado" id="estado" class="form-control" required>
+                                    <option value="0" <?php $compromiso->estado = 0 ? 'selected' : '' ?>>Aun no cumple</option>
+                                    <option value="1" <?php $compromiso->estado = 1 ? 'selected' : '' ?>>Cumple</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="">Fecha Validación</label>
+                                <input type="date" name="fverificacion" id="fverificacion" class="form-control" value="<?php echo date('Y-m-d') ?>" required>
+                            </div>
+                        </div>
                         <input type="hidden" name="horario_id" id="horario_id" class="form-control" value='<?php echo $compromiso->horario_id ?>' required>
-                  
+
                     <?php else : ?>
-                        <input type="hidden" name="estado" id="estado" class="form-control" value="0" >
+                        <input type="hidden" name="estado" id="estado" class="form-control" value="0">
                         <input type="hidden" name="horario_id" id="horario_id" class="form-control" value='<?php echo $_REQUEST['hid'] ?>' required>
-                  
+
                     <?php endif; ?>
                     <div class="col-12" id="vacio"></div>
                 </div>
@@ -71,7 +77,7 @@
                                     timer: 1500
                                 },
                                 setTimeout(function() {
-                                   // window.location.reload(1);
+                                    // window.location.reload(1);
                                 }, 1500)
                             )
                         }

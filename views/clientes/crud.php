@@ -42,30 +42,42 @@
                             <input type="text" name="ubicacion" class="form-control" value='<?php echo $cliente->ubicacion ?>' required>
                         </div>
                     </div>
-
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="nombre">Potencial</label>
-                            <select name="potencial" id="potencial" class="form-control">
-                                <option value=""> Seleccionar</option>
-                                <option <?php echo $cliente->potencial == 'Alto' ? 'selected' : ''  ?> value="Alto"> Alto</option>
-                                <option <?php echo $cliente->potencial == 'Medio' ? 'selected' : '' ?> value="Medio"> Medio</option>
-                                <option <?php echo $cliente->potencial == 'Bajo' ? 'selected' : '' ?> value="Bajo"> Bajo</option>
-                            </select>
+                    <?php if ($cliente->tipo_cliente_id == 3) : ?>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="nombre">Estado</label>
+                                <select name="potencial" id="potencial" class="form-control">
+                                    <option value=""> Seleccionar</option>
+                                    <option <?php echo $cliente->estado_id == '1' ? 'selected' : ''  ?> value="1"> Activo</option>
+                                    <option <?php echo $cliente->estado_id == '0' ? 'selected' : '' ?> value="0"> Inactivo</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="nombre">Enteresado En</label>
-                            <input type="text" name="interesado_en" class="form-control" value='<?php echo $cliente->interesado_en ?>' required>
+                    <?php else : ?>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="nombre">Potencial</label>
+                                <select name="potencial" id="potencial" class="form-control">
+                                    <option value=""> Seleccionar</option>
+                                    <option <?php echo $cliente->potencial == 'Alto' ? 'selected' : ''  ?> value="Alto"> Alto</option>
+                                    <option <?php echo $cliente->potencial == 'Medio' ? 'selected' : '' ?> value="Medio"> Medio</option>
+                                    <option <?php echo $cliente->potencial == 'Bajo' ? 'selected' : '' ?> value="Bajo"> Bajo</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label for="nombre">Como Se Entero</label>
-                            <input type="text" name="como_se_entero" class="form-control" value='<?php echo $cliente->como_se_entero ?>' required>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="nombre">Enteresado En</label>
+                                <input type="text" name="interesado_en" class="form-control" value='<?php echo $cliente->interesado_en ?>' required>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="nombre">Como Se Entero</label>
+                                <input type="text" name="como_se_entero" class="form-control" value='<?php echo $cliente->como_se_entero ?>' required>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <?php if (empty($cliente->tipo_cliente_id)) : ?>
                     <input type="hidden" name="tipo_cliente_id" value='1'>
@@ -109,7 +121,7 @@
                         timer: 1500
                     },
                     setTimeout(function() {
-                       window.location.reload(1);
+                        window.location.reload(1);
                     }, 1500)
                 )
             }

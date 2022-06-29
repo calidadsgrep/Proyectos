@@ -70,4 +70,19 @@ class ActividadesController
         require_once 'views/objetivos/ver.php';
        
     }
+
+
+    public function Reasignar(){
+        $equipo=$this->model->Equipo($_REQUEST['cliente_id']);
+        require_once 'views/actividades/reasignar.php'; 
+    }
+    public function ReasignarEdit(){
+
+        $asignar = new Actividad();
+        
+        $asignar->id=$_REQUEST['id'];
+        $asignar->responsable=$_REQUEST['responsable'];
+        $this->model->ReasignarEdit($asignar);
+       
+    }
 }

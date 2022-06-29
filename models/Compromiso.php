@@ -54,11 +54,11 @@ class Compromiso
         $id = $data->id;
         $horario_id = $data->horario_id;
         $descripcion =  $data->descripcion;
-        $fecha =     $data->fecha;
+        $fecha =     $data->fverificacion;
         $estado =     $data->estado;
 
         try {
-            $sql = "UPDATE compromisos SET horario_id='$horario_id', descripcion='$descripcion', fecha='$fecha',estado='$estado'  WHERE id = $id";
+            $sql = "UPDATE compromisos SET horario_id='$horario_id', descripcion='$descripcion', fverificacion='$fecha',estado='$estado'  WHERE id = $id";
             $this->pdo->prepare($sql)->execute();
         } catch (Exception $e) {
             die($e->getMessage());

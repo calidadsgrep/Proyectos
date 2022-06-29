@@ -13,6 +13,7 @@
                                     <th>Nit</th>
                                     <th>Ubicacion</th>
                                     <th>Tipo</th>
+                                    <th>Soporte</th>
                                     <th>Potencial</th>
                                     <th>Estado</th>
                                     <th>Equipo</th>
@@ -22,7 +23,7 @@
                             <tbody>
                                 <?php foreach ($clientes as $cliente) : ?>
                                     <tr>
-                                        <td><?php echo  strtoupper($cliente->nombre);?>
+                                        <td><?php echo  strtoupper($cliente->nombre); ?>
                                             <?php foreach ($seguimientos as $seguimiento) : ?>
                                                 <?php if ($seguimiento->cliente_id == $cliente->cli_id) : ?>
                                                     <a href="?c=seguimientos&a=index&cli_id=<?php echo $cliente->cli_id ?>"><span class="right badge badge-success"><?php echo  $seguimiento->cant ?> Seguimientos</span></a>
@@ -32,17 +33,28 @@
                                         <td><?php echo  $cliente->nit ?></td>
                                         <td><?php echo  $cliente->ubicacion ?></td>
                                         <td><?php echo  $cliente->tipo_cliente ?></td>
+                                        
+                                        <td class="text-center"><?php
+                                            foreach ($soportes as $value) :
+                                                if ($cliente->cli_id == $value->cliente_id) : ?>
+                                                    <a href="<?php echo $value->link ?>" target="_blank"><i class="fa fa-folder-open"></i></a>
+                                                <?php else : ?>
+                                                   
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </td>
                                         <td><?php echo  $cliente->potencial ?></td>
                                         <td><?php echo  $cliente->estado_id ? 'Activo' : 'Inactivo'; ?></td>
                                         <td>
                                             <?php if ($cliente->tipo_cliente == 'Cliente') : ?>
                                                 <a class="" onclick="Equipo('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default" title="Registrar miembro del equipo de trabajo "><i class="fa fa-user"></i></a>
-                                                <a href="?c=equipos&a=index&cli_id=<?php echo $cliente->cli_id ?>" class=""  title="Gestionar Equipo de trabajo "><i class="fa fa-users"></i></a>
-     
+                                                <a href="?c=equipos&a=index&cli_id=<?php echo $cliente->cli_id ?>" class="" title="Gestionar Equipo de trabajo "><i class="fa fa-users"></i></a>
                                             <?php endif; ?>
                                         </td>
                                         <td>
                                             <a class="" onclick="Edit('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default" title="Actualizar datos"><i class="fa fa-edit"></i> </a>
+                                            <a class="" onclick="Soporte('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default" title="Anexar link Soportes"><i class="fa fa-database"></i> </a>
+
                                             <?php if ($cliente->tipo_cliente != 'Cliente') : ?>
                                                 <a class="" onclick="Seguimiento('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default" title="Registrar Seguimiento"><i class="fa fa-address-book"></i> </a>
                                                 <a class="" onclick="Estado('<?php echo $cliente->cli_id ?>')" data-toggle="modal" data-target="#modal-default" title="Cambiar el status "><i class="fa fa-user"></i></a>
@@ -147,6 +159,22 @@
         $.ajax({
             type: "POST",
             url: '?c=equipos&a=crud',
+            data: {
+                clie_id: id
+            },
+            success: function(resp) {
+                $('#index').html(resp);
+                $('#respuesta').html("");
+            }
+        });
+    }
+
+
+
+    function Soporte(id) {
+        $.ajax({
+            type: "POST",
+            url: '?c=clientes&a=soporte',
             data: {
                 clie_id: id
             },

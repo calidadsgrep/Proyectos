@@ -14,6 +14,7 @@ class Cliente
     public $como_se_entero;
     public $tipo_cliente_id;
     public $clie_id;
+    public $link;
 
 
     public function __CONSTRUCT()
@@ -32,7 +33,7 @@ class Cliente
 
         try {
             $result = array();
-            $stm = $this->pdo->prepare("SELECT clientes.* , clientes.id as cli_id  , tipo_clientes.* 
+            $stm = $this->pdo->prepare("SELECT clientes.* , clientes.id as cli_id  , tipo_clientes.*
                                               FROM clientes, tipo_clientes
                                               WHERE estado_id=1
                                               AND clientes.tipo_cliente_id = tipo_clientes.id
@@ -44,12 +45,25 @@ class Cliente
             die($e->getMessage());
         }
     }
+
+    public function ListarSoportes()
+    {
+
+        try {
+            $result = array();
+            $stm = $this->pdo->prepare("SELECT * FROM clientes_soportes ");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
     public function Listar0()
     {
 
         try {
             $result = array();
-            $stm = $this->pdo->prepare("SELECT clientes.nombre , clientes.id as cli_id  
+            $stm = $this->pdo->prepare("SELECT clientes.nombre , clientes.id as cli_id
                                               FROM proyectos
                                               INNER JOIN  clientes ON proyectos.cliente_id= clientes.id
                                             ");
@@ -137,7 +151,7 @@ class Cliente
     }
     public function ActualizarE(Cliente $data)
     {
-        $id = $data->id;        
+        $id = $data->id;
         $tipo_cliente_id = $data->tipo_cliente_id;
 
         try {
@@ -163,6 +177,44 @@ class Cliente
 
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+    public function Soporte($id)
+    {
+
+        try {
+            $stm = $this->pdo->prepare("SELECT * FROM clientes_soportes WHERE cliente_id = $id ");
+            $stm->execute();
+            return $stm->fetch(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function SoporteAdd(Cliente $data)
+    {
+        print_r($data);
+       
+        try {
+            $stm = 'INSERT INTO clientes_soportes(link, cliente_id)
+                     VALUES(?, ?)';
+            $this->pdo->prepare($stm)->execute(array($data->link, $data->cliente_id));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+    public function SoporteEdit(Cliente $data)
+    {
+
+        try {
+            $sql = "UPDATE clientes_soportes SET  link='$data->link'  WHERE id = '$data->id'";
+            $this->pdo->prepare($sql)->execute();
         } catch (Exception $e) {
             die($e->getMessage());
         }

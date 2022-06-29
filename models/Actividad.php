@@ -131,4 +131,29 @@ class Actividad
 			die($e->getMessage());
 		}
 	}
+
+	public function Equipo($id){
+		try {
+			$stm = $this->pdo->prepare("SELECT * FROM equipos WHERE cliente_id = $id");
+			$stm->execute();
+			return $stm->fetchAll(PDO::FETCH_OBJ);
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+
+	}
+
+	public function ReasignarEdit(Actividad $data)
+	{
+          print_r($data);
+		try {
+			$result = array();
+			$sql = "UPDATE actividades SET responsable='$data->responsable'  WHERE id = '$data->id'";
+			$this->pdo->prepare($sql)->execute();
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+	}
+
+
 }

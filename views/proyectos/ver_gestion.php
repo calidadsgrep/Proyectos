@@ -2,7 +2,9 @@
     <h3 class="text-center">
 
         <?php
-        // print_r($asignacion);
+       /* echo '<pre>';
+        print_r($asignacion);
+        echo '</pre>';*/
         if (!empty($asignacion))
             echo $asignacion[0]->objetivo;
         else
@@ -11,7 +13,7 @@
     </h3>
 </div>
 <div class="col-md-12">
-        <div class="row">
+    <div class="row">
         <?php foreach ($asignacion as  $value) : ?>
             <div class="col-md-4">
                 <!-- Widget: user widget style 2 -->
@@ -45,8 +47,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    Responsable <span class="float-right badge bg-info"><?php echo  $value->nombres.' '.$value->apellidos ?></span>
+                                <a href="#" class="nav-link" onclick="Reasignar('<?php echo $value->actividad_id ?>','<?php echo $value->cliente_id ?>')" data-toggle="modal" data-target="#modelId">
+                                    Responsable <span class="float-right badge bg-info"><?php echo  $value->nombres . ' ' . $value->apellidos ?></span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -66,9 +68,7 @@
                             <button type="button" class="btn btn-default" id="estados" onclick="Editar('<?php echo $value->hor_id ?>')" data-toggle="modal" data-target="#modelId" title="Actualizar
                             "><i class="far fa-edit"></i> </button>
                             <a href="?c=horarios&a=borrar&id=<?php echo $value->id ?>&id=<?php echo $value->hor_id ?>" onclick="return confirm('Estás seguro que deseas eliminar la actividad, esta accion no es reversible?');" class="btn btn-default"><i class="fas fa-trash"></i></a>
-                               
-                     
-                        </div>
+                      </div>
                     </div>
                 </div>
                 <!-- /.widget-user -->
@@ -160,6 +160,18 @@
     function Borrar(val) {
         var hid = val
         $("#info_modal").load("?c=horarios&a=borrar&hid=" + hid, function(responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success")
+                //alert("External content loaded successfully!");
+                if (statusTxt == "error")
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+
+    }
+
+    function Reasignar(act_id, cliente_id) {
+        var act_id = act_id
+        var cliente_id = cliente_id
+        $("#info_modal").load("?c=actividades&a=reasignar&act_id=" + act_id + "&cliente_id=" + cliente_id, function(responseTxt, statusTxt, xhr) {
             if (statusTxt == "success")
                 //alert("External content loaded successfully!");
                 if (statusTxt == "error")

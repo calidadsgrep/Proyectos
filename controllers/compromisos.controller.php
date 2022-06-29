@@ -45,6 +45,7 @@ class CompromisosController
         $compromiso->horario_id = $_REQUEST['horario_id'];
         $compromiso->descripcion = $_REQUEST['descripcion'];
         $compromiso->fecha = $_REQUEST['fecha'];
+        $compromiso->fverificacion = $_REQUEST['fverificacion'];
         $compromiso->estado = $_REQUEST['estado'];
 
         $compromiso->id > 0
